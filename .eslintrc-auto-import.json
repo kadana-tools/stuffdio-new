@@ -358,6 +358,9 @@
     "watchTriggerable": true,
     "watchWithFilter": true,
     "whenever": true,
-    "postAddressToBackend": true
+    "postAddressToBackend": true,
+    "DirectiveBinding": true,
+    "MaybeRef": true,
+    "MaybeRefOrGetter": true
   }
 }
