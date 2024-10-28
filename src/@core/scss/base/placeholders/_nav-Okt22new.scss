@@ -1,0 +1,76 @@
+@use "@core/scss/base/mixins";
+
+// ℹ️ This is common style that needs to be applied to both navs
+%nav {
+  color: rgba(var(--v-theme-on-surface), var(--v-high-emphasis-opacity));
+
+  .nav-item-title {
+    letter-spacing: 0.15px;
+  }
+
+  .nav-section-title {
+    letter-spacing: 0.4px;
+  }
+}
+
+/*
+    Active nav link styles for horizontal & vertical nav
+
+    For horizontal nav it will be only applied to top-level nav items
+    For vertical nav it will be only applied to nav links (not nav groups)
+*/
+%nav-link-active {
+  position: relative; // Required to position the line correctly
+
+  // Apply theme-specific text color for active nav links
+  .v-theme--light & {
+    color: black !important; /* Set text color to black for light theme */
+
+    i, .v-icon, .nav-item-icon {
+      color: black !important; /* Set icon color to black for light theme */
+    }
+
+    // Add bottom line using ::after pseudo-element
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 2px;
+      left: 8%; /* Push the line inward by 10% from the left */
+      width: 84%; /* Make the line width 80% of the total width */
+      height: 1px;
+      background-color: black; /* Line color in light theme */
+      transition: all 0.3s ease-in-out; /* Add transition effect for smooth appearance */
+    }
+  }
+
+  .v-theme--dark & {
+    color: rgb(var(--v-theme-on-primary)) !important; /* Set text color for dark theme */
+
+    i, .v-icon, .nav-item-icon {
+      color: rgb(var(--v-theme-on-primary)) !important; /* Set icon color for dark theme */
+    }
+
+    // Add bottom line using ::after pseudo-element
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 2px;
+      left: 8%; /* Push the line inward by 10% from the left */
+      width: 84%; /* Make the line width 80% of the total width */
+      height: 1px;
+      background-color: rgb(var(--v-theme-on-primary)); /* Line color in dark theme */
+      transition: all 0.3s ease-in-out; /* Add transition effect for smooth appearance */
+    }
+  }
+
+  // @include mixins.elevation(3); /* Elevation effect */
+}
+
+/*
+  Basic nav link styles for non-active links
+*/
+%nav-link {
+  a {
+    color: inherit; /* Automatically inherit color from parent */
+  }
+}

@@ -1,0 +1,49 @@
+@use "@core/scss/template/placeholders" as *;
+
+.layout-horizontal-nav {
+  /* Override Vuetify primary color to a shade of gray (slightly darker than hover) */
+  // --v-global-theme-primary: 200, 200, 200 !important; /* Light Gray with 20% opacity */
+
+  --v-global-theme-primary: 200, 200, 200, 1.0 !important; /* Light Gray with 20% opacity */
+
+  // I want to try this color:
+  // --v-global-theme-primary: var(--v-primary-darken1) !important; /* Darkened primary color */
+
+
+  color: rgba(var(--v-theme-on-background), var(--v-high-emphasis-opacity));
+
+  // SECTION Nav Group
+  .nav-group,
+  .nav-link {
+    .popper-content {
+      .nav-link.sub-item a,
+      .nav-group-label {
+        @extend %nav-group-label-and-nav-link-style;
+      }
+
+      .nav-group.active {
+        > .popper-triggerer .nav-group-label {
+          font-weight: 500;
+        }
+      }
+
+      .nav-group.sub-item .sub-item {
+        .nav-group-label .nav-item-icon {
+          color: rgba(var(--v-theme-on-surface), var(--v-medium-emphasis-opacity));
+        }
+
+        a:not(.router-link-exact-active) .nav-item-icon {
+          color: rgba(var(--v-theme-on-surface), var(--v-medium-emphasis-opacity));
+        }
+      }
+
+      .nav-link.sub-item {
+        .router-link-active.router-link-exact-active {
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  // !SECTION
+}
