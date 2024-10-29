@@ -22,7 +22,7 @@ import MiningPickaxe from '@/assets/images/illustrations/miningaxe.png';
 import HandCrown from '@/assets/images/illustrations/royalties_v3.png';
 
 import { useWalletStore } from '@/store/walletStore';
-import SearchOrConnect from '@/views/my-overview/SearchOrConnect.vue';
+import SearchOrConnect from '@/views/overview/SearchOrConnect.vue';
 import ProjectGraph from '@/views/project/ProjectGraph.vue';
 import ProjectTotals from '@/views/project/ProjectTotals.vue';
 
