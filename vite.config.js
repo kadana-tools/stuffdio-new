@@ -112,6 +112,10 @@ export default defineConfig({
   },
   build: {
     chunkSizeWarningLimit: 5000,
+    rollupOptions: {
+      // Make sure that Vue is NOT listed as an external dependency here
+      external: [], // Leave this as an empty array if not using external dependencies
+    },
   },
   optimizeDeps: {
     include: ['vue'],
