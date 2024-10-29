@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+        {
+            "source": "/(.*)", // Capture all paths
+            "destination": "/" // Serve index.html for all paths
+        }
+    ]
+}
