@@ -12,15 +12,11 @@ import { useAbility } from '@casl/vue'
  */
 export const can = (action, subject) => {
   const vm = getCurrentInstance()
-  if (!vm) return false
-
+  if (!vm)
+    return false
   const localCan = vm.proxy && '$can' in vm.proxy
-  const hasPermission = localCan ? vm.proxy?.$can(action, subject) : true
-
-  // Log the permission check results
-  console.log(`Checking permission for action: ${action}, subject: ${subject} - Has Permission: ${hasPermission}`);
-
-  return hasPermission
+    
+  return localCan ? vm.proxy?.$can(action, subject) : true
 }
 
 /**

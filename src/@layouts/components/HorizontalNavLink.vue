@@ -31,6 +31,7 @@ console.log('Computed Nav Link To Prop:', navLinkProps);
 const hasPermission = can(props.item.action, props.item.subject);
 console.log('Can navigate:', hasPermission, 'for item:', props.item);
 
+
 </script>
 
 <template>
