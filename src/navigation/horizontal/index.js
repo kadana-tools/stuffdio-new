@@ -1,3 +1,5 @@
 import Overview from './overview'
+import Project from './project'
+import Rewards from './rewards'
 
-export default [...Overview]
+export default [...Overview, ...Rewards, ...Project]
