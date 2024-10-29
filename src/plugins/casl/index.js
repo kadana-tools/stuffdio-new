@@ -11,10 +11,11 @@ export default function (app) {
   const defaultRules = [{ action: 'view', subject: 'Overview' }, { action: 'view', subject: 'Rewards' }, { action: 'view', subject: 'Project' }]; // Add any other default rules you need
   const initialAbility = createMongoAbility(userAbilityRules.value ?? defaultRules)
 
-  // Log the initial ability rules for debugging
+  console.log('User Ability Rules:', userAbilityRules.value)
   console.log('Initial Ability Rules:', initialAbility.rules);
 
   app.use(abilitiesPlugin, initialAbility, {
     useGlobalProperties: true,
   })
 }
+
