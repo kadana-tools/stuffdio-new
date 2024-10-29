@@ -14,7 +14,7 @@ import svgLoader from 'vite-svg-loader'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '', // Match this to your repository name on GitHub
+  base: '/', 
   logLevel: 'info', // Enable more detailed logging
   plugins: [
     // Docs: https://github.com/posva/unplugin-vue-router
