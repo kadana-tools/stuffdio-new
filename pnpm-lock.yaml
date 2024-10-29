@@ -15,10 +15,10 @@ importers:
   .:
     dependencies:
       '@casl/ability':
-        specifier: 6.7.1
+        specifier: ^6.7.1
         version: 6.7.1
       '@casl/vue':
-        specifier: 2.2.2
+        specifier: ^2.2.2
         version: 2.2.2(@casl/ability@6.7.1)(vue@3.5.12(typescript@5.5.4))
       '@emurgo/cardano-serialization-lib-asmjs':
         specifier: ^12.1.0
