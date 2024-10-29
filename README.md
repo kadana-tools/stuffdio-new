@@ -3,6 +3,7 @@
 echo "// Redeploying with vercel.json for routing" >> src/main.js
 echo "// Redeploying with vercel.json for routing" >> src/main.js
 echo "// Redeploying with vercel.json for routing" >> src/main.js
+echo "// Redeploying with vercel.json for routing" >> src/main.js
 
 
 emplate should help get you started developing with Vue 3 in Vite.
