@@ -2,7 +2,11 @@
 import {
   HorizontalNavGroup,
   HorizontalNavLink,
-} from '@layouts/components'
+} from '@layouts/components';
+import { useRoute } from 'vue-router';
+;
+
+const route = useRoute();
 
 const props = defineProps({
   navItems: {
@@ -11,7 +15,13 @@ const props = defineProps({
   },
 })
 
+
+console.log('Nav Items in HorizontalNav:', props.navItems);
+console.log('Current route in production:', route.fullPath);
+
+
 const resolveNavItemComponent = item => {
+  console.log('Processing Nav Item:', item);
   if ('children' in item)
     return HorizontalNavGroup
   

@@ -20,17 +20,15 @@ const props = defineProps({
 })
 
 
-// Correctly access the computed property value as a function
 console.log('Nav item in HorizontalNavLink:', props.item);
 
-// Log the computed navigation properties correctly SO WITH A .value!!!!
-const navLinkProps = getComputedNavLinkToProp.value(props.item);
+// Log the computed navigation properties
+const navLinkProps = getComputedNavLinkToProp(props.item);
 console.log('Computed Nav Link To Prop:', navLinkProps);
 
 // Log the permission check result
 const hasPermission = can(props.item.action, props.item.subject);
 console.log('Can navigate:', hasPermission, 'for item:', props.item);
-
 </script>
 
 <template>

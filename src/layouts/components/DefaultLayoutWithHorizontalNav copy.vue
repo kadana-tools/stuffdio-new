@@ -1,12 +1,18 @@
 <script setup>
+import navItems from '@/navigation/horizontal'
+import { themeConfig } from '@themeConfig'
 import Footer from '@/layouts/components/Footer.vue'
+import NavBarNotifications from '@/layouts/components/NavBarNotifications.vue'
+import NavSearchBar from '@/layouts/components/NavSearchBar.vue'
+import NavbarShortcuts from '@/layouts/components/NavbarShortcuts.vue'
 import NavbarThemeSwitcher from '@/layouts/components/NavbarThemeSwitcher.vue'
-import navItems from '@/navigation/horizontal/index.js'
-import { useWalletStore } from '@/store/walletStore'
+import UserProfile from '@/layouts/components/UserProfile.vue'
+import NavBarI18n from '@core/components/I18n.vue'
+import { HorizontalNavLayout } from '@layouts'
 import WalletModal from '@/views/my-overview/WalletModal.vue'
-import { useConfigStore } from '@core/stores/config'; // Import configStore for theme
-import HorizontalNavLayout from '@layouts/components/HorizontalNavLayout.vue'
-import { computed } from 'vue'
+import { useWalletStore } from '@/store/walletStore'
+import { ref, computed } from 'vue'
+import { useConfigStore } from '@core/stores/config' // Import configStore for theme
 
 // Get the wallet store
 const walletStore = useWalletStore()
@@ -18,8 +24,8 @@ const configStore = useConfigStore()
 const isDarkTheme = computed(() => configStore.theme === 'dark')
 
 // Import logos
-import stuffdLogoLight from '@/assets/images/illustrations/STUFFD-transp-v2-dark.webp'; // New logo for light theme
-import stuffdLogoDark from '@/assets/images/illustrations/STUFFD-transp-v2.webp'; // Current logo for dark theme
+import stuffdLogoDark from '@/assets/images/illustrations/STUFFD-transp-v2.webp' // Current logo for dark theme
+import stuffdLogoLight from '@/assets/images/illustrations/STUFFD-transp-v2-dark.webp' // New logo for light theme
 
 // Function to handle wallet connection
 const handleWalletConnected = (connected) => {
@@ -28,10 +34,6 @@ const handleWalletConnected = (connected) => {
 
 // Dynamically choose the logo based on the theme
 const stuffdLogo = computed(() => (isDarkTheme.value ? stuffdLogoDark : stuffdLogoLight))
-
-console.log('Imported HorizontalNavLayout:', HorizontalNavLayout);
-console.log('Imported navItems:', navItems);
-
 </script>
 
 
