@@ -1,6 +1,5 @@
 <script setup>
 import { layoutConfig } from '@layouts';
-import { can } from '@layouts/plugins/casl';
 import {
   getComputedNavLinkToProp,
   getDynamicI18nProps,
@@ -17,26 +16,18 @@ const props = defineProps({
     required: false,
     default: false,
   },
-})
-
+});
 
 // Correctly access the computed property value as a function
 console.log('Nav item in HorizontalNavLink:', props.item);
 
-// Log the computed navigation properties correctly SO WITH A .value!!!!
+// Compute navigation properties using the function, not directly as a value
 const navLinkProps = getComputedNavLinkToProp.value(props.item);
 console.log('Computed Nav Link To Prop:', navLinkProps);
-
-// Log the permission check result
-const hasPermission = can(props.item.action, props.item.subject);
-console.log('Can navigate:', hasPermission, 'for item:', props.item);
-
-
 </script>
 
 <template>
   <li
-    v-if="can(item.action, item.subject)"
     class="nav-link"
     :class="[{
       'sub-item': props.isSubItem,
@@ -45,7 +36,7 @@ console.log('Can navigate:', hasPermission, 'for item:', props.item);
   >
     <Component
       :is="item.to ? 'RouterLink' : 'a'"
-      v-bind="getComputedNavLinkToProp(item)"
+      v-bind="navLinkProps"
       :class="{ 'router-link-active router-link-exact-active': isNavLinkActive(item, $router) }"
     >
       <Component
