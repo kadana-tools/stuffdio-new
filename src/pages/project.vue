@@ -90,8 +90,6 @@ export default {
       const royaltiesData = Dates.value.slice(0, -1).map((date) => data.value[date]?.Royalties || 0);
       const ecosystemData = Dates.value.slice(0, -1).map((date) => data.value[date]?.Ecosystem || 0);
 
-      console.log('Mining Data:', miningData); // Log to verify
-
       return [
         {
           title: 'Mining',
