@@ -1,8 +1,8 @@
 <script setup>
 import { useWalletStore } from '@/store/walletStore';
-import SearchOrConnect from '@/views/overview/SearchOrConnect.vue';
-import SizesAndFortification from '@/views/overview/SizesAndFortification.vue';
-import WalletPivottable from '@/views/overview/WalletPivottable.vue';
+import SearchOrConnect from '@/views/my-overview/SearchOrConnect.vue';
+import SizesAndFortification from '@/views/my-overview/SizesAndFortification.vue';
+import WalletPivottable from '@/views/my-overview/WalletPivottable.vue';
 // import backgroundImage from '../assets/images/illustrations/SoMuchFun.png';
 
 

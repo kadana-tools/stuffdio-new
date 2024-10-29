@@ -1,8 +1,8 @@
 <script setup>
 import { useWalletStore } from '@/store/walletStore';
-import SearchOrConnect from '@/views/overview/SearchOrConnect.vue';
-import OutpostData from '@/views/rewards/OutpostData.vue';
-import WalletRewards from '@/views/rewards/WalletRewards.vue';
+import SearchOrConnect from '@/views/my-overview/SearchOrConnect.vue';
+import OutpostData from '@/views/my-rewards/OutpostData.vue';
+import WalletRewards from '@/views/my-rewards/WalletRewards.vue';
 
 // Access wallet store
 const walletStore = useWalletStore();
