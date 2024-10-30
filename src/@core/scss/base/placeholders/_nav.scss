@@ -8,8 +8,11 @@
     letter-spacing: 0.15px;
 
     @media (max-width: 600px) {
-      font-size: 0.9rem; // Set a smaller font size for screens smaller than 600px
-    }
+      font-size: 0.85rem; // Set a smaller font size for screens smaller than 600px
+      padding-left: 0rem; // Reduced left padding for smaller screens
+      padding-right: 0rem; // Reduced right padding for smaller screens
+      margin: 0; // Remove or reduce margins to make items closer together
+     }
   }
 
   .nav-section-title {
