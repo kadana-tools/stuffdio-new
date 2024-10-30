@@ -18,19 +18,46 @@ const configStore = useConfigStore()
 const isDarkTheme = computed(() => configStore.theme === 'dark')
 
 // Import logos
+import stuffdLogoSmall from '@/assets/images/illustrations/Play-button-as-a-D-v2.png'; // New logo for small screens
 import stuffdLogoLight from '@/assets/images/illustrations/STUFFD-transp-v2-dark.webp'; // New logo for light theme
 import stuffdLogoDark from '@/assets/images/illustrations/STUFFD-transp-v2.webp'; // Current logo for dark theme
+
+// Reactive state for screen size
+const isSmallScreen = ref(window.innerWidth <= 600)
+
+// Update isSmallScreen on window resize
+const updateScreenSize = () => {
+  isSmallScreen.value = window.innerWidth <= 600
+}
+
+// Add event listeners for screen resize
+onMounted(() => {
+  window.addEventListener('resize', updateScreenSize)
+})
+onUnmounted(() => {
+  window.removeEventListener('resize', updateScreenSize)
+})
+
 
 // Function to handle wallet connection
 const handleWalletConnected = (connected) => {
   walletStore.setWalletConnected(connected) // Update Pinia state
 }
 
-// Dynamically choose the logo based on the theme
-const stuffdLogo = computed(() => (isDarkTheme.value ? stuffdLogoDark : stuffdLogoLight))
+// Dynamically choose the logo based on the theme and screen size
+const stuffdLogo = computed(() => {
+  if (isSmallScreen.value) {
+    return stuffdLogoSmall // Use small logo for screens below 600px
+  }
+  return isDarkTheme.value ? stuffdLogoDark : stuffdLogoLight
+})
 
-console.log('Imported HorizontalNavLayout:', HorizontalNavLayout);
-console.log('Imported navItems:', navItems);
+// Dynamically set logo height based on screen size
+const logoHeight = computed(() => (isSmallScreen.value ? '50px' : '60px'))
+
+
+// console.log('Imported HorizontalNavLayout:', HorizontalNavLayout);
+// console.log('Imported navItems:', navItems);
 
 </script>
 
@@ -41,9 +68,9 @@ console.log('Imported navItems:', navItems);
       <!-- 👉 navbar -->
       <template #navbar>
         <RouterLink to="/" class="app-logo d-flex align-center gap-x-3 logo">
-          <!-- Bind the logo based on the theme -->
-          <img :src="stuffdLogo" alt="STUFFD Logo" class="app-logo-image" style="height: 60px;" />
-        </RouterLink>
+          <!-- Bind the logo based on the theme and screen size -->
+          <img :src="stuffdLogo" alt="STUFFD Logo" class="app-logo-image" :style="{ height: logoHeight }" />
+       </RouterLink>
 
         <VSpacer />
 
@@ -79,7 +106,6 @@ console.log('Imported navItems:', navItems);
 // }
 
 .logo {
-  margin-left: -30px;
 
   @media (min-width: 600px) {
     margin-left: -100px;

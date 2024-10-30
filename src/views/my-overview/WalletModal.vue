@@ -34,7 +34,7 @@
           <span v-if="walletStore.backendDataRetrieved && walletStore.changeAddress">
             {{ formattedAddress }}
           </span>
-          <span v-else>Connect Wallet</span>
+          <span v-else>{{ buttonText }}</span> <!-- Use computed property for button text -->
         </VBtn>
 
         <!-- Dropdown Menu for Disconnect, only if wallet is connected -->
@@ -120,6 +120,25 @@ const showWalletMenu = ref(false) // Controls the dropdown visibility
 const showLoaderDialog = ref(false); // Controls the loader modal visibility
 const isLoading = ref(false); // Track loading state
 const walletButton = ref(null) // Button ref to tie the dropdown to
+
+// Reactive state for screen size
+const isSmallScreen = ref(window.innerWidth <= 600);
+
+// Update isSmallScreen on window resize
+const updateScreenSize = () => {
+  isSmallScreen.value = window.innerWidth <= 600;
+};
+
+// Add event listeners for screen resize
+onMounted(() => {
+  window.addEventListener('resize', updateScreenSize);
+});
+onUnmounted(() => {
+  window.removeEventListener('resize', updateScreenSize);
+});
+
+// Dynamically set the button text based on screen size
+const buttonText = computed(() => (isSmallScreen.value ? 'Connect' : 'Connect Wallet'));
 
 // Reusable function to format a string if its length is greater than 12 characters
 const formatString = (str) => {
@@ -319,3 +338,6 @@ body.no-scroll {
   box-shadow: none !important;
 }
 </style>
+
+
+

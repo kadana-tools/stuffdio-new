@@ -6,6 +6,10 @@
 
   .nav-item-title {
     letter-spacing: 0.15px;
+
+    @media (max-width: 600px) {
+      font-size: 0.9rem; // Set a smaller font size for screens smaller than 600px
+    }
   }
 
   .nav-section-title {
