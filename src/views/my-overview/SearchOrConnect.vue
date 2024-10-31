@@ -2,11 +2,11 @@
   <VRow no-gutters class="auth-wrapper">
     <VCol cols="12" md="6" class="auth-card-v2 d-flex align-center justify-center">
       <VCard class="responsive-card mt-sm-0 pt-3">
-        <!-- Welcome Text -->
+        
         <VCardText>
           <h4 class="text-h4 mb-1">Hi there!</h4>
           <p class="mb-0">
-            Enter your Cardano wallet address or connect your wallet and get to know more about your Outpost NFT's!
+            Enter your Cardano wallet address or connect your wallet and get to know more about your Outpost NFTs!
           </p>
         </VCardText>
 
@@ -23,15 +23,31 @@
                   @keydown.enter="updateAddress"
                   class="w-100"
                 >
+                  <!-- Append the search and close buttons -->
                   <template #append-inner>
+
+                    <!-- Close button to clear the input -->
                     <VBtn 
-                      color='surface-bright'
+                      color="surface-bright"
+                      v-if="walletAddress"
+                      icon
+                      @click="clearInput"
+                      class="small-clear-btn" 
+                    >
+                     <VIcon size="16">tabler-x</VIcon> <!-- Use size="16" or other size you prefer -->
+                   </VBtn>
+
+                    <!-- Search button -->
+                    <VBtn 
+                      color="surface-bright"
                       v-if="walletAddress"
                       icon
                       @click="updateAddress"
                     >
                       <VIcon>tabler-search</VIcon>
                     </VBtn>
+                    
+
                   </template>
                 </VTextField>
               </VCol>
@@ -75,7 +91,7 @@ import { useWalletStore } from '@/store/walletStore';
 import { postAddressToBackend } from '@/utils/api'; // Import the API function
 import WalletLoader from '@/views/my-overview/WalletLoader.vue'; // Import the WalletLoader component
 import WalletModal from '@/views/my-overview/WalletModal.vue';
-import { onMounted, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 
 const walletAddress = ref('$test-wallet'); // Default text
 const showWalletConnect = ref(false);
@@ -139,11 +155,15 @@ const updateAddress = async () => {
   }
 };
 
+// // Clear input field function
+// const clearInput = () => {
+//   walletAddress.value = '';
+// };
 
-// Focus on the input field when the component is mounted
-onMounted(() => {
-  inputRef.value.focus();
-});
+// // Focus on the input field when the component is mounted
+// onMounted(() => {
+//   inputRef.value.focus();
+// });
 
 // Watch for backend data retrieval and close the loader if data is ready
 watch(() => walletStore.backendDataRetrieved, (newVal) => {
@@ -198,7 +218,7 @@ const onWalletConnected = () => {
 /* Error Overlay for Mobile (screens with a width of 600px or less) */
 @media (max-width: 600px) {
   .error-overlay {
-    top: 30%;
+    top: 25%;
   }
 }
 
