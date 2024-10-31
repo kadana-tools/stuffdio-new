@@ -198,7 +198,7 @@ const onWalletConnected = () => {
 /* Error Overlay for Mobile (screens with a width of 600px or less) */
 @media (max-width: 600px) {
   .error-overlay {
-    top: 35%;
+    top: 30%;
   }
 }
 

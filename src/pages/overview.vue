@@ -73,7 +73,7 @@ const handleWalletConnected = (connected) => {
 }
 
 .my-custom-margin {
-  margin-top: 200px;
+  margin-top: 150px;
   margin-left: 0;
 
   @media (min-width: 600px) {
