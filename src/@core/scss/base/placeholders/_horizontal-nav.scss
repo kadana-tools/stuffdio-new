@@ -7,6 +7,13 @@
 %horizontal-nav-item {
   padding-block: 0.6rem;
   padding-inline: 1rem;
+
+  // Stack icons above text for mobile screens
+  @media (max-width: 600px) {
+    display: flex;
+    flex-direction: column; // Stack icon above text
+    align-items: center; // Center-align icon and text within each nav item
+  }
 }
 
 // Top level horizontal nav item styles (`a` tag & group label)
@@ -57,6 +64,11 @@
 %horizontal-nav-item-icon {
   font-size: variables.$horizontal-nav-items-icon-size;
   margin-inline-end: variables.$horizontal-nav-items-icon-margin-inline-end;
+
+  @media (max-width: 600px) {
+    margin-bottom: 0.3rem; // Space between icon and text on mobile
+    margin-inline-end: 0; // Remove inline margin for mobile to center icon
+  }
 }
 
 // Horizontal nav subitem
@@ -65,6 +77,11 @@
 
   .nav-item-title {
     margin-inline-end: 1rem;
+
+    @media (max-width: 600px) {
+      text-align: center; // Center-align text under the icon for mobile
+      margin-inline-end: 0; // Remove margin to center-align text
+    }
   }
 }
 

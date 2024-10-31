@@ -140,33 +140,55 @@ const routeBackgroundClass = computed(() => {
   //   background-repeat: no-repeat;
   // }
 
-    // Custom background for the /my-rewards route
-    &.wallet-connected.rewards-background {
-    height: 370px; /* Limit the height to 370px */  
-    background-image: url('../assets/images/illustrations/Pred-Mothership-Full.png'); /* example: NewDerpetonia.png Add your connected image */
+  // Custom backgrounds with responsive background-position
+
+  // Custom background for the /my-rewards route
+  &.wallet-connected.rewards-background {
+    height: 370px;
+    background-image: url('../assets/images/illustrations/Pred-Mothership-Full.png');
     background-size: cover;
-    background-position: center 110px;  // so changing this actually changes the appearing height on the page. If this is set to 370px, same as the height defined above, there is no img visible
     background-repeat: no-repeat;
+    
+    // Default background position for larger screens
+    background-position: center 110px;
+
+    // Adjust background position for screens smaller than 600px
+    @media (max-width: 600px) {
+      background-position: center 133px;
+    }
   }
 
   // Custom background for the /my-overview route
   &.wallet-connected.overview-background {
-    height: 370px; /* Limit the height to 370px */
-    background-image: url('../assets/images/illustrations/SoMuchFun_v2.png'); /* example: NewDerpetonia.png Add your connected image */
+    height: 370px;
+    background-image: url('../assets/images/illustrations/SoMuchFun_v2.png');
     background-size: cover;
-    background-position: center 110px;
     background-repeat: no-repeat;
+
+    // Default background position for larger screens
+    background-position: center 110px; // this sets the position of the top side of the background image. It should align with the bottom of the nav bar. Now set manually....
+
+    // Adjust background position for screens smaller than 600px
+    @media (max-width: 600px) {
+      background-position: center 133px;
+    }
   }
 
   // Custom background for the /project route
   &.wallet-connected.project-background {
-    height: 370px; /* Limit the height to 370px */
-    background-image: url('../assets/images/illustrations/NewDerpetonia.png'); /* example: NewDerpetonia.png Add your connected image */
+    height: 370px;
+    background-image: url('../assets/images/illustrations/NewDerpetonia.png');
     background-size: cover;
-    background-position: center 110px;
     background-repeat: no-repeat;
-  }
 
+    // Default background position for larger screens
+    background-position: center 110px;
+
+    // Adjust background position for screens smaller than 600px
+    @media (max-width: 600px) {
+      background-position: center 133px;
+    }
+  }
 }
 
 body {

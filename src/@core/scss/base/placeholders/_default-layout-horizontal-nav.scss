@@ -15,13 +15,31 @@
 }
 
 %default-layout-horizontal-nav-navbar {
-  border-block-end: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+  border-block-end: 1px solid rgba(var(--v-border-color), var(--v-border-opacity)); // sets the thickness of one of the horizontal nav lines
 }
 
 %default-layout-horizontal-nav-nav {
   padding-block: variables.$horizontal-nav-padding;
 }
 
+// _default-layout-horizontal-nav.scss
+
+// This container holds each nav item (wrapper of icon and title)
 %default-layout-horizontal-nav-nav-items-list {
-  gap: variables.$horizontal-nav-top-level-items-gap;
+  display: flex;
+  // gap: variables.$horizontal-nav-top-level-items-gap;
+
+  @media (max-width: 600px) {
+    width: 100%; // Ensure the container spans the full width
+    justify-content: space-between; // Distribute nav items evenly
+    padding-inline: 2rem; // Add padding to both left and right edges
+  }
+
+  .horizontal-nav-item {
+    flex: 1; // Allow each item to take up equal space
+    display: flex;
+    flex-direction: column; // Stack icon above text
+    align-items: center; // Center-align icon and text within each item
+    padding-inline: 0.5rem; // Adjust padding if needed for spacing
+  }
 }
