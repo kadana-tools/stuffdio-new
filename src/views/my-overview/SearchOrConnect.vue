@@ -27,15 +27,15 @@
                   <template #append-inner>
 
                     <!-- Close button to clear the input -->
-                    <VBtn 
+                    <!-- <VBtn 
                       color="surface-bright"
                       v-if="walletAddress"
                       icon
                       @click="clearInput"
                       class="small-clear-btn" 
                     >
-                     <VIcon size="16">tabler-x</VIcon> <!-- Use size="16" or other size you prefer -->
-                   </VBtn>
+                     <VIcon size="16">tabler-x</VIcon>
+                   </VBtn> -->
 
                     <!-- Search button -->
                     <VBtn 
