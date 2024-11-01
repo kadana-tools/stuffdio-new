@@ -1,8 +1,8 @@
 <template>
- <div class="table-container" v-if="!isSmallScreen">
+  
   <VCard class="my-pivottable">
 
-    <VCardItem title="Biome Footprint">
+    <VCardItem title="NFT Overview">
       <!-- <div class="table-header text-h6"></div>Biome Footprint -->
     </VCardItem>
 
@@ -41,36 +41,6 @@
       </VCardText>
       
   </VCard>
-</div> 
-
-  <div class="table-container" v-else>
-    <table class="table">
-      <thead>
-        <tr class="main-headers-row">
-          <th v-for="(col, index) in transposedHeaders" :key="'trans-main-' + index" :style="getHeaderStyle(col)">
-            <span>{{ col }}</span>
-          </th>
-        </tr>
-        <tr class="sub-headers-row">
-          <th v-for="(col, index) in transposedSubHeaders" :key="'trans-sub-' + index">
-            {{ col }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(row, rowIndex) in transposedBodyRows" :key="'trans-body-' + rowIndex">
-          <td v-for="(cell, cellIndex) in row" :key="'trans-cell-' + cellIndex" :class="getCellClass(cellIndex, false, row, rowIndex)" :style="getCellStyle(rowIndex, cellIndex)">
-            <span>{{ cell }}</span>
-          </td>
-        </tr>
-        <tr>
-          <td v-for="(cell, cellIndex) in transposedLastRow" :key="'trans-last-' + cellIndex">
-            <span>{{ cell }}</span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
 </template>
 
 <script>
@@ -87,11 +57,6 @@ import img_pred from '@/assets/images/illustrations/pred.png';
 import img_sandcryptbandlands from '@/assets/images/illustrations/sandcrypt_bandlands.png';
 
 export default {
-  data() {
-    return {
-      isSmallScreen: window.innerWidth < 600,
-    };
-  },
   name: 'CompWalletPivottable',
   props: {
     Pivottable_Data: {
@@ -201,28 +166,7 @@ export default {
           ['Total', , , , , , , , , , , , , , , , , , , , , , '', 0]
         ]
       };
-    },
-    transposedColumns() {
-      if (!this.hasValidData) return [];
-      const rows = [this.mainHeaders, this.subHeaders];
-      for (let i = 0; i < this.bodyRows.length; i++) {
-        rows.push(this.bodyRows[i]);
-      }
-      rows.push(this.lastRow);
-      return rows[0].map((_, colIndex) => rows.map(row => row[colIndex] || ""));
-    },
-    transposedHeaders() {
-      return this.transposedColumns[0];
-    },
-    transposedSubHeaders() {
-      return this.transposedColumns[1];
-    },
-    transposedBodyRows() {
-      return this.transposedColumns.slice(2, -1);
-    },
-    transposedLastRow() {
-      return this.transposedColumns[this.transposedColumns.length - 1];
-    },
+    }
   },
   methods: {
     getHeaderStyle(header) {
@@ -234,11 +178,12 @@ export default {
         'Pinnacle Perch': `url(${img_pinnacleperch})`,
         'Baldos Bog': `url(${img_baldosbog})`,
         'Lavalode Peaks': `url(${img_lavalodepeaks})`,
+        // Add more header images as needed
       };
       return {
         backgroundImage: backgroundImages[header] || 'none',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        backgroundSize: 'cover', // Ensure background image is auto-sized
+        backgroundPosition: 'center', // Center the background image
       };
     },
     getCellClass(cellIndex, isHeader, row, rowIndex) {
@@ -252,6 +197,7 @@ export default {
           'Pinnacle Perch': 'header5-color',
           'Baldos Bog': 'header6-color',
           'Lavalode Peaks': 'header7-color',
+          // Add more header colors as needed
         };
         return headerColors[header] || '';
       }
@@ -270,31 +216,21 @@ export default {
       if (cellIndex === 0 && backgroundImages[rowIndex]) {
         return {
           backgroundImage: backgroundImages[rowIndex],
-          backgroundSize: '50%',
+          backgroundSize: '50%', // Scale down the image
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          width: '300px',
-          padding: '10px',
+          width: '300px', // Increase the width
+          padding: '10px', // Add padding to increase the width
         };
       }
       return {
-        width: '150px',
-        padding: '8px',
+        width: '150px', // Default width for other cells
+        padding: '8px', // Default padding for other cells
       };
     },
-    checkScreenWidth() {
-      this.isSmallScreen = window.innerWidth < 600;
-    },
-  },
-  mounted() {
-    window.addEventListener("resize", this.checkScreenWidth);
-  },
-  beforeDestroy() {
-    window.removeEventListener("resize", this.checkScreenWidth);
   },
 };
 </script>
-
 
 
 <style scoped>

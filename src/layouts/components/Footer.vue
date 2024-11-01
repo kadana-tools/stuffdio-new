@@ -4,14 +4,14 @@
     <span class="d-flex align-center text-medium-emphasis">
       &copy;
       {{ new Date().getFullYear() }}
-      Made With
+      <!-- Made With
       <VIcon
         icon="tabler-heart-filled"
         color="error"
         size="1.25rem"
         class="mx-1"
-      />
-      By Kadana
+      /> -->
+      by Kadana
     </span>
     <!-- 👉 Footer: right content -->
     <span class="d-md-flex gap-x-4 text-primary d-none">

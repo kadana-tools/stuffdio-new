@@ -4,11 +4,12 @@
       <VCard class="responsive-card mt-sm-0 pt-3">
         
         <VCardText>
-          <h4 class="text-h4 mb-1">Hi there!</h4>
+          <h4 class="text-h4 mb-1">Discover..</h4>    <!-- Alternative: Hi there! -->
           <p class="mb-0">
-            Enter your Cardano wallet address or connect your wallet and get to know more about your Outpost NFTs!
-          </p>
-        </VCardText>
+            Search for a Cardano wallet address or connect your wallet and get to know more about your Outpost NFTs!
+          </p> 
+        </VCardText>         <!-- Alternative: Enter a Cardano wallet address or connect your wallet and get to know more about your Outpost NFTs. -->
+
 
         <!-- Wallet Address Search Field -->
         <VCardText>
