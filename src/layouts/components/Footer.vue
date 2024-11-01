@@ -11,7 +11,7 @@
         size="1.25rem"
         class="mx-1"
       /> -->
-      by Kadana
+      made by Kadana
     </span>
     <!-- 👉 Footer: right content -->
     <span class="d-md-flex gap-x-4 text-primary d-none">

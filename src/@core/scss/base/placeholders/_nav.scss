@@ -74,10 +74,18 @@
 }
 
 /*
-  Basic nav link styles for non-active links
+  Non-active nav link styles
 */
 %nav-link {
+  .v-theme--dark & {
+    color: rgb(var(--v-theme-on-primary)); /* Set primary color for dark theme */
+
+    i, .v-icon, .nav-item-icon {
+      color: rgb(var(--v-theme-on-primary)); /* Set icon color to primary for dark theme */
+    }
+  }
+
   a {
-    color: inherit; /* Automatically inherit color from parent */
+    color: inherit; /* Inherit color set above */
   }
 }

@@ -112,8 +112,8 @@ const routeBackgroundClass = computed(() => {
     background-image: linear-gradient(
       to bottom,
       rgba(255, 255, 255, 0.0) 20%,
-      rgba(255, 255, 255, 0.3) 98%),
-    url('../assets/images/illustrations/FeastOfSnails_v2.png');
+      rgba(255, 255, 255, 0.2) 98%),
+    url('../assets/images/illustrations/FeastOfSnails_v4.png');
   }
 
   // When the theme is dark and the wallet is NOT connected
@@ -121,8 +121,8 @@ const routeBackgroundClass = computed(() => {
     background-image: linear-gradient(
       to bottom,
       rgba(255, 255, 255, 0.0) 20%,
-      rgba(47, 51, 73, 0.5) 98%),  /* Fades to dark */
-    url('../assets/images/illustrations/FeastOfSnails_v2.png');
+      rgba(47, 51, 73, 0.55) 98%),  /* Fades to dark */
+    url('../assets/images/illustrations/FeastOfSnails_v4.png');
   }
 
   // When the wallet is connected, show the background image based on the route
