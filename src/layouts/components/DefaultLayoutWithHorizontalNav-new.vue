@@ -96,28 +96,30 @@ const logoHeight = computed(() => (isSmallScreen.value ? '50px' : '60px'))
 
 <style lang="scss">
 
-.logo {
-  margin-left: -100px;
-}
-
-.Wallet-Connect {
-  margin-left: 25px; // to create some space between the themeselection toggle and the wallet connect button
-  margin-right: -100px;
-}
-
-.logo {
+.layout-background {
+  padding-inline: 1rem; // Adds compactness by default on all screen sizes
 
   @media (min-width: 600px) {
-    margin-left: -100px;
+    padding-inline: 2rem; // Adjusts padding on larger screens
+  }
+}
+
+.logo {
+  margin-left: -1rem;
+
+  @media (min-width: 600px) {
+    margin-left: -100px; // Moves closer to the edge on larger screens
   }
 }
 
 .Wallet-Connect {
-  margin-left: 25x; // to create some space between the themeselection toggle and the wallet connect button
-  margin-right: 0px;
+  margin-right: -1rem;
+  margin-left: 25px; // Space between theme toggle and wallet button
 
   @media (min-width: 600px) {
-    margin-right: -100px;
+    margin-right: -75px; // Moves closer to edge on larger screens
   }
 }
+
+
 </style>
