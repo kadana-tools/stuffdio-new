@@ -105,19 +105,19 @@ const logoHeight = computed(() => (isSmallScreen.value ? '50px' : '60px'))
 //   margin-right: -100px;
 // }
 
-.logo {
+// .logo {
 
-  @media (min-width: 600px) {
-    margin-left: -100px;
-  }
-}
+//   @media (min-width: 600px) {
+//     margin-left: -100px;
+//   }
+// }
 
-.Wallet-Connect {
-  margin-left: 25x; // to create some space between the themeselection toggle and the wallet connect button
-  margin-right: 0px;
+// .Wallet-Connect {
+//   margin-left: 25x; // to create some space between the themeselection toggle and the wallet connect button
+//   margin-right: 0px;
 
-  @media (min-width: 600px) {
-    margin-right: -100px;
-  }
-}
+//   @media (min-width: 600px) {
+//     margin-right: -100px;
+//   }
+// }
 </style>
