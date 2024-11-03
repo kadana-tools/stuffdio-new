@@ -101,6 +101,7 @@ declare module 'vue-router/auto-routes' {
     'login': RouteRecordInfo<'login', '/login', Record<never, never>, Record<never, never>>,
     'not-authorized': RouteRecordInfo<'not-authorized', '/not-authorized', Record<never, never>, Record<never, never>>,
     'overview': RouteRecordInfo<'overview', '/overview', Record<never, never>, Record<never, never>>,
+    'overview-backup-nov3': RouteRecordInfo<'overview-backup-nov3', '/overview-backupNov3', Record<never, never>, Record<never, never>>,
     'pages-account-settings-tab': RouteRecordInfo<'pages-account-settings-tab', '/pages/account-settings/:tab', { tab: ParamValue<true> }, { tab: ParamValue<false> }>,
     'pages-authentication-forgot-password-v1': RouteRecordInfo<'pages-authentication-forgot-password-v1', '/pages/authentication/forgot-password-v1', Record<never, never>, Record<never, never>>,
     'pages-authentication-forgot-password-v2': RouteRecordInfo<'pages-authentication-forgot-password-v2', '/pages/authentication/forgot-password-v2', Record<never, never>, Record<never, never>>,

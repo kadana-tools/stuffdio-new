@@ -6,24 +6,41 @@
         <VCardText>
           <h4 class="text-h4 mb-1">Hi there!</h4>    <!-- Alternative: Hi there! -->
           <p class="mb-0">
-            Search for a Cardano wallet address or connect your wallet and get to know more about your Outpost NFTs.
+            Connect or search your Cardano wallet (or use our $demo-wallet) to discover more about Outpost NFTs
           </p> 
         </VCardText>         <!-- Alternative: Enter a Cardano wallet address or connect your wallet and get to know more about your Outpost NFTs. -->
+        <!-- Search for a Cardano wallet address or connect your wallet and get to know more about your Outpost NFTs. -->
+     
+     
 
-
+        
         <!-- Wallet Address Search Field -->
         <VCardText>
           <VForm ref="refVForm">
             <VRow>
               <VCol cols="12">
-                <VTextField
+                <!-- <VTextField
                   ref="inputRef"
                   v-model="walletAddress"
                   label="Submit Wallet Address"
                   placeholder="addr1... or $handle"
                   @keydown.enter="updateAddress"
                   class="w-100"
+                > -->
+
+
+                <VTextField
+                  ref="inputRef"
+                  v-model="walletAddress"
+                  placeholder="addr1... or $handle"
+                  @keydown.enter="updateAddress"
+                  class="w-100"
                 >
+                  <template #label>
+                    Submit wallet address and "click"
+                    <VIcon>tabler-search</VIcon>
+                  </template>
+
                   <!-- Append the search and close buttons -->
                   <template #append-inner>
 
@@ -94,7 +111,7 @@ import WalletLoader from '@/views/my-overview/WalletLoader.vue'; // Import the W
 import WalletModal from '@/views/my-overview/WalletModal.vue';
 import { ref, watch } from 'vue';
 
-const walletAddress = ref('$test-wallet'); // Default text
+const walletAddress = ref('$demo-wallet'); // Default text
 const showWalletConnect = ref(false);
 const walletStore = useWalletStore();
 

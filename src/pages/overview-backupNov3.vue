@@ -77,16 +77,10 @@ const handleWalletConnected = (connected) => {
   margin-top: 120px;
   margin-left: 0;
 
-  @media (min-width: 600px) and (min-height: 700px){
-    margin-top: 30vh; /* Minimum margin with responsive adjustment */
-    margin-left: -5.5vw;
+  @media (min-width: 600px) {
+    margin-top: 250px;
+    margin-left: -100px;
   }
-
-  // @media (max-height: 700px) {
-  //   margin-top: 20vh; /* Minimum margin with responsive adjustment */
-  //   margin-left: -5.5vw;
-  // }
-  
 }
 .error-message {
   color: red; /* Example color for error messages */
