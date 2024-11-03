@@ -77,7 +77,7 @@ const handleWalletConnected = (connected) => {
   margin-top: 120px;
   margin-left: 0;
 
-  @media (min-width: 600px) and (min-height: 700px){
+  @media (min-width: 600px) and (min-height: 800px){
     margin-top: 30vh; /* Minimum margin with responsive adjustment */
     margin-left: -5.5vw;
   }
