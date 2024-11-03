@@ -16,12 +16,12 @@ const props = defineProps({
 })
 
 
-console.log('Nav Items in HorizontalNav:', props.navItems);
-console.log('Current route in production:', route.fullPath);
+// console.log('Nav Items in HorizontalNav:', props.navItems);
+// console.log('Current route in production:', route.fullPath);
 
 
 const resolveNavItemComponent = item => {
-  console.log('Processing Nav Item:', item);
+  // console.log('Processing Nav Item:', item);
   if ('children' in item)
     return HorizontalNavGroup
   

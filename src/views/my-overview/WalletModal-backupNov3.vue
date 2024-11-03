@@ -175,7 +175,6 @@ const onWalletConnected = () => {
   showWalletConnectDialog.value = false;
   showLoaderDialog.value = false;
   walletStore.backendDataRetrieved = true; // Indicate that backend data is retrieved
-  walletStore.enablingAborted = false; 
   emit('wallet-connected', true);
 };
 
@@ -190,35 +189,12 @@ const setLoadingState = (loading) => {
   }
 };
 
-// Define props using defineProps and destructure loading from it
-const { loading } = defineProps({
-  loading: Boolean, // Prop passed from the child component
-});
-
-// Watch for changes in backendDataRetrieved or enablingAborted
-watch(
-  [() => walletStore.backendDataRetrieved, () => walletStore.enablingAborted],
-  ([backendDataRetrieved, enablingAborted]) => {
-    if (backendDataRetrieved || enablingAborted) {
-      showLoaderDialog.value = false; // Close the loader dialog
-      isLoading.value = false; // Stop any ongoing loading process
-
-    }
+// Watch backendDataRetrieved and close loader dialog if it's true
+watch(() => walletStore.backendDataRetrieved, (newVal) => {
+  if (newVal) {
+    showLoaderDialog.value = false; // Close the loader dialog when data is retrieved
   }
-);
-
-// Listen to `wallet-connect-abort` event from the child to close loader if connection was canceled
-const handleWalletConnectAbort = () => {
-  showLoaderDialog.value = false;
-};
-
-onMounted(() => {
-      // Assuming you're using the `walletConnect` ref to reference the child component
-      const walletConnectComponent = document.getElementById('walletConnect'); // Adjust this to match your component reference method
-      if (walletConnectComponent) {
-        walletConnectComponent.addEventListener('wallet-connect-abort', handleWalletConnectAbort);
-      }
-    });
+});
 
 // Disconnect the wallet and reset all states
 const disconnectWallet = () => {

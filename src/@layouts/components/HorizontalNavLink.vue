@@ -19,11 +19,11 @@ const props = defineProps({
 });
 
 // Correctly access the computed property value as a function
-console.log('Nav item in HorizontalNavLink:', props.item);
+// console.log('Nav item in HorizontalNavLink:', props.item);
 
 // Compute navigation properties using the function, not directly as a value
 const navLinkProps = getComputedNavLinkToProp.value(props.item);
-console.log('Computed Nav Link To Prop:', navLinkProps);
+// console.log('Computed Nav Link To Prop:', navLinkProps);
 </script>
 
 <template>

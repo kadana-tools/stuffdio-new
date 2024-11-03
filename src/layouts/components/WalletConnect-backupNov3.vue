@@ -183,53 +183,43 @@ export default {
       this.$emit('loading', true); // Emit loading state to the parent
 
       try {
-        // Attempt to enable the wallet
+        // Enable the wallet and check if it was successful
         this.API = await window.cardano[walletKey].enable();
-        console.log('this.API:', this.API);
-
-        // Check if the wallet connection was aborted
-        if (this.API && this.API.status === false) {
-          console.warn("Wallet connection was aborted by the user:", this.API);
-          walletStore.setEnablingAborted(true); // Set enablingAborted to true on abort
-          this.resetData(); // Reset wallet-related state
-          this.isLoading = false; // Ensure loading is disabled on abort
-          this.$emit('loading', false); // Notify parent to stop loading
-          return; // Exit early to prevent further execution
-        }
-
-        // Check if the wallet is enabled
+        console.log('this.API:', this.API)
         this.walletIsEnabled = await window.cardano[walletKey].isEnabled();
+        console.log('this.walletIsEnabled:', this.walletIsEnabled)
 
         if (this.walletIsEnabled) {
-          // Fetch balance and post to backend
-          await this.getChangeAddress();
-          await postAddressToBackend(this.changeAddress);
-          walletStore.setWalletConnected(true);
-          walletStore.setEnablingAborted(false); // Clear enablingAborted on success
 
+          // Fetch balance
+          await this.getChangeAddress();          
 
-          // Notify parent that wallet is enabled
+          // Post changeAddress to the backend
+          await postAddressToBackend(this.changeAddress) 
+
+          walletStore.setWalletConnected(true); // Set wallet connected
+
+          // Emit the wallet-enabled event to the parent to close the modal
           this.$emit("wallet-enabled");
+          // Close the modal if a closeModal function is passed
+
+          // Emit 'loading' false once the loading is complete
+          this.$emit('loading', false);
         } else {
           console.error("Failed to enable wallet:", walletKey);
-          this.resetData(); // Reset state on failure
+          this.resetData(); // Reset state when selecting a new wallet
         }
       } catch (err) {
         console.error(`Error enabling wallet ${walletKey}:`, err);
-        this.resetData(); // Reset state on error
-        walletStore.setEnablingAborted(true); // Set enablingAborted on error
-
-      } finally {
-        this.isLoading = false; // Ensure loading ends
-        this.$emit('loading', false); // Notify parent loading is complete
+        this.resetData(); // Reset state when selecting a new wallet
       }
+      finally {
+      this.isLoading = false; // Stop loading after the process is done
+      this.$emit('loading', false); // Make sure loading ends even in case of error
+      }
+
+      return this.walletIsEnabled;
     },
-
-
-
-
-
-
     checkIfWalletFound() {
       const walletKey = this.whichWalletSelected;
       const walletFound = !!window?.cardano?.[walletKey];
