@@ -25,6 +25,7 @@ const handleWalletConnected = (connected) => {
     walletStore.setWalletConnected(connected);
   }
 }
+
 </script>
 
 <template>
@@ -78,7 +79,7 @@ const handleWalletConnected = (connected) => {
 
   @media (min-width: 600px) {
     margin-top: 250px;
-    margin-left: -100px;
+    margin-left: -5.5vw;
   }
 }
 .error-message {

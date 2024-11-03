@@ -225,7 +225,7 @@ export default {
 
 .my-custom-margin {
   margin-top: 120px;
-  margin-left: 0;
+  margin-left: -5.5vw;
 
   @media (min-width: 600px) {
     margin-top: 250px;

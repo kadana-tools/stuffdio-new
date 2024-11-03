@@ -96,59 +96,28 @@ const logoHeight = computed(() => (isSmallScreen.value ? '50px' : '60px'))
 
 <style lang="scss">
 
-// .logo {
-//   margin-left: -100px;
-// }
+.logo {
+  margin-left: -100px;
+}
 
-// .Wallet-Connect {
-//   margin-left: 25px; // to create some space between the themeselection toggle and the wallet connect button
-//   margin-right: -100px;
-// }
-
-// .logo {
-
-//   @media (min-width: 600px) {
-//     margin-left: -100px;
-//   }
-// }
-
-// .Wallet-Connect {
-//   margin-left: 25x; // to create some space between the themeselection toggle and the wallet connect button
-//   margin-right: 0px;
-
-//   @media (min-width: 600px) {
-//     margin-right: -100px;
-//   }
-// }
-
-
-.layout-background {
-
-  @media (min-width: 600px) {
-    padding-inline: 2rem; // Adjusts padding on larger screens
-  }
+.Wallet-Connect {
+  margin-left: 25px; // to create some space between the themeselection toggle and the wallet connect button
+  margin-right: -100px;
 }
 
 .logo {
-  /* Default margin for screens <600px */
-  margin-left: 0;
 
-  /* For screens >600px, use dynamic margin with vw units */
   @media (min-width: 600px) {
-    margin-left: -7vw; // Adjust proportionally with viewport width
+    margin-left: -100px;
   }
 }
 
 .Wallet-Connect {
-  /* Default margin for screens <600px */
-  margin-left: 25px;
-  margin-right: 0;
+  margin-left: 25x; // to create some space between the themeselection toggle and the wallet connect button
+  margin-right: 0px;
 
-  /* For screens >600px, use dynamic margin with vw units */
   @media (min-width: 600px) {
-    margin-right: -5vw; // Adjust proportionally with viewport width
+    margin-right: -100px;
   }
 }
-
-
 </style>
