@@ -7,6 +7,7 @@ import axios from 'axios';
 export const postAddressToBackend = async (address) => {
   const walletStore = useWalletStore(); // Use the store
   try {
+    // const response = await axios.post('https://stuffd-426805.ew.r.appspot.com/get_metadata', { address });
     const response = await axios.post('https://stuffd-jul23.ew.r.appspot.com/get_metadata', { address });
     // const response = await axios.post('http://127.0.0.1:5000/get_metadata', { address });
 

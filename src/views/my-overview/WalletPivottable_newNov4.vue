@@ -12,8 +12,7 @@
           <table class="table"> 
             <thead>
               <tr class="main-headers-row">
-                <th v-for="(col, index) in mergedMainHeaders" :key="'main-' + index" :colspan="col.colspan" :style="getHeaderStyle(col.header)"  :class="{ 'unique-column': col.header === 'Unique 1of1' }"
-                >
+                <th v-for="(col, index) in mergedMainHeaders" :key="'main-' + index" :colspan="col.colspan" :style="getHeaderStyle(col.header)">
                   <span v-if="index === mergedMainHeaders.length - 1">{{ col.header }}</span>
                 </th>
               </tr>
@@ -56,8 +55,6 @@ import img_lavalodepeaks from '@/assets/images/illustrations/lavalode_peaks.png'
 import img_pinnacleperch from '@/assets/images/illustrations/pinnacle_perch.png';
 import img_pred from '@/assets/images/illustrations/pred.png';
 import img_sandcryptbandlands from '@/assets/images/illustrations/sandcrypt_bandlands.png';
-import img_1of1 from '@/assets/images/illustrations/1of1_v3_smallwidth.png';
-
 
 export default {
   name: 'CompWalletPivottable',
@@ -181,7 +178,7 @@ export default {
         'Pinnacle Perch': `url(${img_pinnacleperch})`,
         'Baldos Bog': `url(${img_baldosbog})`,
         'Lavalode Peaks': `url(${img_lavalodepeaks})`,
-        'Unique 1of1': `url(${img_1of1})` // Placeholder image; replace as needed
+        'Unique 1of1': `url(${img_lavalodepeaks})` // Placeholder image; replace as needed
       };
 
       // Apply custom width specifically for 'Unique 1of1'
@@ -190,9 +187,7 @@ export default {
         backgroundImage: backgroundImages[header] || 'none',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        width: isUnique1of1 ? '580px' : '150px', // Set 'Unique 1of1' column width to 200px
-        // minWidth: isUnique1of1 ? '50px' : '15px', // Prevent it from shrinking below this size
-        // minWidth: isUnique1of1 ? '25px' : '15px' // Prevent it from shrinking below this size
+        width: isUnique1of1 ? '600px' : '150px' // Set 'Unique 1of1' column width to 200px
       };
     },
     getCellClass(cellIndex, isHeader, row, rowIndex) {
@@ -337,24 +332,4 @@ export default {
   background-color: rgba(36,34,42,255);
   color: white;
 }
-
-.unique-column {
-  width: 580px; /* Default width for larger screens */
-}
-
-/* Small screens (max-width: 768px) */
-@media (max-width: 768px) {
-  .unique-column {
-    min-width: 50px; /* Prevent shrinking below this size */
-    width: auto; /* Allow flexibility */
-  }
-}
-
-/* Extra-small screens (max-width: 480px) */
-@media (max-width: 480px) {
-  .unique-column {
-    min-width: 50px; /* Further reduce the size for very small screens */
-  }
-}
-
 </style>

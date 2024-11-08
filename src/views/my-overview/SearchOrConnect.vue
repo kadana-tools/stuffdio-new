@@ -6,7 +6,7 @@
         <VCardText>
           <h4 class="text-h4 mb-1">Hi there!</h4>    <!-- Alternative: Hi there! -->
           <p class="mb-0">
-            Connect or search your Cardano wallet (or use our $demo-wallet) to discover more about Outpost NFTs
+            Connect or search your Cardano wallet -- <span style="font-style: italic;">or use our $demo-wallet</span> -- to discover more about Outpost NFTs
           </p> 
         </VCardText>         <!-- Alternative: Enter a Cardano wallet address or connect your wallet and get to know more about your Outpost NFTs. -->
         <!-- Search for a Cardano wallet address or connect your wallet and get to know more about your Outpost NFTs. -->

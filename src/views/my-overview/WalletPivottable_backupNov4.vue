@@ -12,8 +12,7 @@
           <table class="table"> 
             <thead>
               <tr class="main-headers-row">
-                <th v-for="(col, index) in mergedMainHeaders" :key="'main-' + index" :colspan="col.colspan" :style="getHeaderStyle(col.header)"  :class="{ 'unique-column': col.header === 'Unique 1of1' }"
-                >
+                <th v-for="(col, index) in mergedMainHeaders" :key="'main-' + index" :colspan="col.colspan" :style="getHeaderStyle(col.header)">
                   <span v-if="index === mergedMainHeaders.length - 1">{{ col.header }}</span>
                 </th>
               </tr>
@@ -56,8 +55,6 @@ import img_lavalodepeaks from '@/assets/images/illustrations/lavalode_peaks.png'
 import img_pinnacleperch from '@/assets/images/illustrations/pinnacle_perch.png';
 import img_pred from '@/assets/images/illustrations/pred.png';
 import img_sandcryptbandlands from '@/assets/images/illustrations/sandcrypt_bandlands.png';
-import img_1of1 from '@/assets/images/illustrations/1of1_v3_smallwidth.png';
-
 
 export default {
   name: 'CompWalletPivottable',
@@ -68,8 +65,8 @@ export default {
       default() {
         const defaultData = {
           columns: [
-            ['Faction', 'Derpshire Valley', 'Derpshire Valley', 'Derpshire Valley', 'Chillarctica Drifts', 'Chillarctica Drifts', 'Chillarctica Drifts', 'Sandcrypt Bandlands', 'Sandcrypt Bandlands', 'Sandcrypt Bandlands', 'Chillvine Jungle', 'Chillvine Jungle', 'Chillvine Jungle', 'Pinnacle Perch', 'Pinnacle Perch', 'Pinnacle Perch', 'Baldos Bog', 'Baldos Bog', 'Baldos Bog', 'Lavalode Peaks', 'Lavalode Peaks', 'Lavalode Peaks', 'Unique 1of1', '', 'Total'],
-            ['', 'S', 'M', 'L', 'S', 'M', 'L', 'S', 'M', 'L', 'S', 'M', 'L', 'S', 'M', 'L', 'S', 'M', 'L', 'S', 'M', 'L', 'L', '', '']
+            ['Faction', 'Derpshire Valley', 'Derpshire Valley', 'Derpshire Valley', 'Chillarctica Drifts', 'Chillarctica Drifts', 'Chillarctica Drifts', 'Sandcrypt Bandlands', 'Sandcrypt Bandlands', 'Sandcrypt Bandlands', 'Chillvine Jungle', 'Chillvine Jungle', 'Chillvine Jungle', 'Pinnacle Perch', 'Pinnacle Perch', 'Pinnacle Perch', 'Baldos Bog', 'Baldos Bog', 'Baldos Bog', 'Lavalode Peaks', 'Lavalode Peaks', 'Lavalode Peaks', '', 'Total'],
+            ['', 'S', 'M', 'L', 'S', 'M', 'L', 'S', 'M', 'L', 'S', 'M', 'L', 'S', 'M', 'L', 'S', 'M', 'L', 'S', 'M', 'L', '', '']
           ],
           data: [
             ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
@@ -153,8 +150,8 @@ export default {
     defaultData() {
       return {
         columns: [
-          ['Faction', 'Derpshire Valley', 'Derpshire Valley', 'Derpshire Valley', 'Chillarctica Drifts', 'Chillarctica Drifts', 'Chillarctica Drifts', 'Sandcrypt Bandlands', 'Sandcrypt Bandlands', 'Sandcrypt Bandlands', 'Chillvine Jungle', 'Chillvine Jungle', 'Chillvine Jungle', 'Pinnacle Perch', 'Pinnacle Perch', 'Pinnacle Perch', 'Baldos Bog', 'Baldos Bog', 'Baldos Bog', 'Lavalode Peaks', 'Lavalode Peaks', 'Lavalode Peaks', 'Unique 1of1', '', 'Total'],
-          ['', 'S', 'M', 'L', 'S', 'M', 'L', 'S', 'M', 'L', 'S', 'M', 'L', 'S', 'M', 'L', 'S', 'M', 'L', 'S', 'M', 'L', 'L', '', '']
+          ['Faction', 'Derpshire Valley', 'Derpshire Valley', 'Derpshire Valley', 'Chillarctica Drifts', 'Chillarctica Drifts', 'Chillarctica Drifts', 'Sandcrypt Bandlands', 'Sandcrypt Bandlands', 'Sandcrypt Bandlands', 'Chillvine Jungle', 'Chillvine Jungle', 'Chillvine Jungle', 'Pinnacle Perch', 'Pinnacle Perch', 'Pinnacle Perch', 'Baldos Bog', 'Baldos Bog', 'Baldos Bog', 'Lavalode Peaks', 'Lavalode Peaks', 'Lavalode Peaks', '', 'Total'],
+          ['', 'S', 'M', 'L', 'S', 'M', 'L', 'S', 'M', 'L', 'S', 'M', 'L', 'S', 'M', 'L', 'S', 'M', 'L', 'S', 'M', 'L', '', '']
         ],
         data: [
           ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
@@ -172,7 +169,7 @@ export default {
     }
   },
   methods: {
-      getHeaderStyle(header) {
+    getHeaderStyle(header) {
       const backgroundImages = {
         'Derpshire Valley': `url(${img_derpshirevalley})`,
         'Chillarctica Drifts': `url(${img_chillarcticadrifts})`,
@@ -181,18 +178,12 @@ export default {
         'Pinnacle Perch': `url(${img_pinnacleperch})`,
         'Baldos Bog': `url(${img_baldosbog})`,
         'Lavalode Peaks': `url(${img_lavalodepeaks})`,
-        'Unique 1of1': `url(${img_1of1})` // Placeholder image; replace as needed
+        // Add more header images as needed
       };
-
-      // Apply custom width specifically for 'Unique 1of1'
-      const isUnique1of1 = header === 'Unique 1of1';
       return {
         backgroundImage: backgroundImages[header] || 'none',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        width: isUnique1of1 ? '580px' : '150px', // Set 'Unique 1of1' column width to 200px
-        // minWidth: isUnique1of1 ? '50px' : '15px', // Prevent it from shrinking below this size
-        // minWidth: isUnique1of1 ? '25px' : '15px' // Prevent it from shrinking below this size
+        backgroundSize: 'cover', // Ensure background image is auto-sized
+        backgroundPosition: 'center', // Center the background image
       };
     },
     getCellClass(cellIndex, isHeader, row, rowIndex) {
@@ -206,7 +197,6 @@ export default {
           'Pinnacle Perch': 'header5-color',
           'Baldos Bog': 'header6-color',
           'Lavalode Peaks': 'header7-color',
-          'Unique 1of1': 'header8-color',
           // Add more header colors as needed
         };
         return headerColors[header] || '';
@@ -333,28 +323,4 @@ export default {
   background-color: rgba(74,34,36,255);
   color: white;
 }
-.header8-color {
-  background-color: rgba(36,34,42,255);
-  color: white;
-}
-
-.unique-column {
-  width: 580px; /* Default width for larger screens */
-}
-
-/* Small screens (max-width: 768px) */
-@media (max-width: 768px) {
-  .unique-column {
-    min-width: 50px; /* Prevent shrinking below this size */
-    width: auto; /* Allow flexibility */
-  }
-}
-
-/* Extra-small screens (max-width: 480px) */
-@media (max-width: 480px) {
-  .unique-column {
-    min-width: 50px; /* Further reduce the size for very small screens */
-  }
-}
-
 </style>

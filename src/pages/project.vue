@@ -58,7 +58,9 @@ export default {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://stuffd-426805.ew.r.appspot.com/get_project_totals');
+        // const response = await axios.get('https://stuffd-426805.ew.r.appspot.com/get_project_totals');
+        const response = await axios.get('https://stuffd-jul23.ew.r.appspot.com/get_project_totals');
+        // const response = await axios.get('http://127.0.0.1:5000/get_project_totals');
         data.value = response.data;
         Dates.value = Object.keys(data.value); // Populate Dates array after data fetch
       } catch (error) {
