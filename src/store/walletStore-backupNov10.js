@@ -7,9 +7,7 @@ export const useWalletStore = defineStore('walletStore', {
     backendData: null,
     backendDataRetrieved: false,
     enablingAborted: false, // New state to track aborted connection
-    closeLoaderForEmptyWalletConnect: false, // New state
-    backendMessage: '', // New state for backend message
-    // I'll be honest.. I dont rly like that I have to define so many parameters in the store. I think in a next iteration this the amount of states can be reduced significantly. 
+    // I'll be honest.. I dont rly like that I had to define ANOTHER parameter in the store, just to shutdown the loader if one cancels the walletenable. I hoped to fix it with alrdy existing parameters, but wasnt able...
   }),
   actions: {
     setWalletConnected(isConnected) {
@@ -33,21 +31,6 @@ export const useWalletStore = defineStore('walletStore', {
     setEnablingAborted(status) { // Ensure this action is defined
       this.enablingAborted = status;
     },
-    setCloseLoaderForEmptyWalletConnect(status) {
-      console.log('setCloseLoaderForEmptyWalletConnect called with:', status);
-      if (!status) {
-        setTimeout(() => {
-          this.closeLoaderForEmptyWalletConnect = status;
-          console.log('Updated closeLoaderForEmptyWalletConnect to:', this.closeLoaderForEmptyWalletConnect);
-        }, 500); // Delay reset to allow watchers to react
-      } else {
-        this.closeLoaderForEmptyWalletConnect = status;
-      }
-    },
-    setBackendMessage(message) {
-      this.backendMessage = message;
-    },
-    
   },
   getters: {
     hasErrorMessage(state) {

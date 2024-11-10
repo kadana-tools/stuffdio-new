@@ -214,7 +214,6 @@ watch(
 
       // Reset closeLoaderForEmptyWalletConnect in the store
       if (closeLoaderForEmptyWallet) {
-        
         walletStore.setCloseLoaderForEmptyWalletConnect(false);
       }
     }

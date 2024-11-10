@@ -184,55 +184,6 @@ const onWalletConnected = () => {
   showWalletConnect.value = false;
   walletStore.setWalletConnected(true);
 };
-
-
-// watch(
-//   () => walletStore.closeLoaderForEmptyWalletConnect,
-//   (closeLoader) => {
-//     console.log('Watcher triggered, closeLoaderForEmptyWalletConnect:', closeLoader);
-//   }
-// );
-
-
-const closeLoaderForEmptyWalletConnect = computed(() => walletStore.closeLoaderForEmptyWalletConnect);
-
-// console.log('searchorconnect.vue watching:', closeLoaderForEmptyWalletConnect.value);
-
-const reactiveCloseLoader = ref(walletStore.closeLoaderForEmptyWalletConnect);
-
-watch(
-  () => reactiveCloseLoader.value,
-  (closeLoader) => {
-    // console.log('searchorconnect reactiveCloseLoader watcher triggered:', closeLoader); // Debug log
-    if (closeLoader) {
-      showErrorMessage.value = true;
-      errorMessage.value = walletStore.backendMessage; // Display the actual backend message
-      startErrorTimer();
-
-      walletStore.setCloseLoaderForEmptyWalletConnect(false);
-    }
-  }
-);
-
-// Sync the ref with the store reactively
-watch(
-  () => walletStore.closeLoaderForEmptyWalletConnect,
-  (newVal) => {
-    reactiveCloseLoader.value = newVal;
-  }
-);
-
-
-// console.log('walletStore instance in searchorconnect:', walletStore);
-
-
-// If this log doesn’t appear, searchorconnect.vue isn’t active.
-
-// onMounted(() => {
-//   console.log('searchorconnect mounted at:', new Date().toISOString());
-//   console.log('Initial closeLoaderForEmptyWalletConnect:', walletStore.closeLoaderForEmptyWalletConnect);
-// });
-
 </script>
 
 

@@ -79,7 +79,10 @@
 
               <!-- Wallet Connect Option -->
               <VCol cols="8">
-                <WalletModal @wallet-connected="onWalletConnected" />
+                <WalletModal
+                  @wallet-connected="onWalletConnected"
+                  @stringFromBackendForWalletConnect="handleWalletConnectError"
+                />
               </VCol>
             </VRow>
           </VForm>
@@ -139,6 +142,7 @@ const startErrorTimer = () => {
 // Create a reference for the input field
 const inputRef = ref(null);
 
+// BELOW FUNCTIONS WORKS FOR THE SEARCH FUNCTIONALITY, NOT THE WALLET CONNECT. FOR WALLET CONNECT CHECK THE WALLET CONNECT COMPONENT.
 const updateAddress = async () => {
   showLoaderDialog.value = true; // Show loader before starting the update
   
@@ -163,15 +167,14 @@ const updateAddress = async () => {
   }
 };
 
-// // Clear input field function
-// const clearInput = () => {
-//   walletAddress.value = '';
-// };
+const handleWalletConnectError = (message) => {
+  console.log("Error message received from walletmodal.vue:", message);
 
-// // Focus on the input field when the component is mounted
-// onMounted(() => {
-//   inputRef.value.focus();
-// });
+  // Set the error message and display the error overlay
+  errorMessage.value = message;
+  showErrorMessage.value = true;
+  startErrorTimer(); // Start the visual timer for the error
+};
 
 // Watch for backend data retrieval and close the loader if data is ready
 watch(() => walletStore.backendDataRetrieved, (newVal) => {
@@ -184,55 +187,6 @@ const onWalletConnected = () => {
   showWalletConnect.value = false;
   walletStore.setWalletConnected(true);
 };
-
-
-// watch(
-//   () => walletStore.closeLoaderForEmptyWalletConnect,
-//   (closeLoader) => {
-//     console.log('Watcher triggered, closeLoaderForEmptyWalletConnect:', closeLoader);
-//   }
-// );
-
-
-const closeLoaderForEmptyWalletConnect = computed(() => walletStore.closeLoaderForEmptyWalletConnect);
-
-// console.log('searchorconnect.vue watching:', closeLoaderForEmptyWalletConnect.value);
-
-const reactiveCloseLoader = ref(walletStore.closeLoaderForEmptyWalletConnect);
-
-watch(
-  () => reactiveCloseLoader.value,
-  (closeLoader) => {
-    // console.log('searchorconnect reactiveCloseLoader watcher triggered:', closeLoader); // Debug log
-    if (closeLoader) {
-      showErrorMessage.value = true;
-      errorMessage.value = walletStore.backendMessage; // Display the actual backend message
-      startErrorTimer();
-
-      walletStore.setCloseLoaderForEmptyWalletConnect(false);
-    }
-  }
-);
-
-// Sync the ref with the store reactively
-watch(
-  () => walletStore.closeLoaderForEmptyWalletConnect,
-  (newVal) => {
-    reactiveCloseLoader.value = newVal;
-  }
-);
-
-
-// console.log('walletStore instance in searchorconnect:', walletStore);
-
-
-// If this log doesn’t appear, searchorconnect.vue isn’t active.
-
-// onMounted(() => {
-//   console.log('searchorconnect mounted at:', new Date().toISOString());
-//   console.log('Initial closeLoaderForEmptyWalletConnect:', walletStore.closeLoaderForEmptyWalletConnect);
-// });
-
 </script>
 
 

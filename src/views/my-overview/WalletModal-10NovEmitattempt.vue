@@ -91,7 +91,11 @@
 
         <VCardItem v-if="!isLoading" title="Connect to Wallet:"></VCardItem>
         <VCardText v-if="!isLoading">
-          <WalletConnect @wallet-enabled="onWalletConnected" @loading="setLoadingState" />
+          <WalletConnect
+            @wallet-enabled="onWalletConnected"
+            @loading="setLoadingState"
+            @backend-response="handleBackendResponse"
+          />
         </VCardText>
       </VCard>
     </VDialog>
@@ -162,8 +166,17 @@ const formattedSearchedWalletName = computed(() => {
 });
 
 
-// Emit event to parent when wallet is connected
-const emit = defineEmits(['wallet-connected']);
+const emit = defineEmits([
+  'wallet-connected', 
+  'stringFromBackendForWalletConnect' // Declare the emitted event
+]);
+
+const handleBackendResponse = (message) => {
+  console.log("Received backend response in walletmodal.vue:", message);
+
+  // Emit the message to the parent
+  emit('stringFromBackendForWalletConnect', message);
+};
 
 // Open the wallet connect modal
 const openWalletConnectDialog = () => {
@@ -214,7 +227,7 @@ watch(
 
       // Reset closeLoaderForEmptyWalletConnect in the store
       if (closeLoaderForEmptyWallet) {
-        
+        emit('stringFromBackendForWalletConnect', message); // Pass the backend string to the parent
         walletStore.setCloseLoaderForEmptyWalletConnect(false);
       }
     }

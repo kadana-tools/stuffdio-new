@@ -141,9 +141,7 @@ const inputRef = ref(null);
 
 const updateAddress = async () => {
   showLoaderDialog.value = true; // Show loader before starting the update
-  
   try {
-    walletStore.setChangeAddress(walletAddress.value); 
     const response = await postAddressToBackend(walletAddress.value); // Post address to backend
 
     if (typeof response === 'string') {
@@ -151,10 +149,6 @@ const updateAddress = async () => {
       errorMessage.value = response;
       showErrorMessage.value = true;
       startErrorTimer(); // Start visual timer
-    } else {
-      // walletStore.setBackendDataRetrieved(true); // Indicate that backend data is ready
-      walletStore.setWalletSearched(true); // New line to mark the wallet as searched
-      walletStore.setSearchedWalletName(walletAddress.value); // Set the searched wallet name
     }
   } catch (error) {
     console.error("Error updating address:", error);
@@ -162,6 +156,7 @@ const updateAddress = async () => {
     showLoaderDialog.value = false; // Hide loader after update completes
   }
 };
+
 
 // // Clear input field function
 // const clearInput = () => {
@@ -184,55 +179,6 @@ const onWalletConnected = () => {
   showWalletConnect.value = false;
   walletStore.setWalletConnected(true);
 };
-
-
-// watch(
-//   () => walletStore.closeLoaderForEmptyWalletConnect,
-//   (closeLoader) => {
-//     console.log('Watcher triggered, closeLoaderForEmptyWalletConnect:', closeLoader);
-//   }
-// );
-
-
-const closeLoaderForEmptyWalletConnect = computed(() => walletStore.closeLoaderForEmptyWalletConnect);
-
-// console.log('searchorconnect.vue watching:', closeLoaderForEmptyWalletConnect.value);
-
-const reactiveCloseLoader = ref(walletStore.closeLoaderForEmptyWalletConnect);
-
-watch(
-  () => reactiveCloseLoader.value,
-  (closeLoader) => {
-    // console.log('searchorconnect reactiveCloseLoader watcher triggered:', closeLoader); // Debug log
-    if (closeLoader) {
-      showErrorMessage.value = true;
-      errorMessage.value = walletStore.backendMessage; // Display the actual backend message
-      startErrorTimer();
-
-      walletStore.setCloseLoaderForEmptyWalletConnect(false);
-    }
-  }
-);
-
-// Sync the ref with the store reactively
-watch(
-  () => walletStore.closeLoaderForEmptyWalletConnect,
-  (newVal) => {
-    reactiveCloseLoader.value = newVal;
-  }
-);
-
-
-// console.log('walletStore instance in searchorconnect:', walletStore);
-
-
-// If this log doesn’t appear, searchorconnect.vue isn’t active.
-
-// onMounted(() => {
-//   console.log('searchorconnect mounted at:', new Date().toISOString());
-//   console.log('Initial closeLoaderForEmptyWalletConnect:', walletStore.closeLoaderForEmptyWalletConnect);
-// });
-
 </script>
 
 

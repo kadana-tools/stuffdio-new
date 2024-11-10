@@ -141,11 +141,11 @@ setPrimaryColor() // Call the function to apply the locked color
         <CustomizerSection title="Layout">
           <div class="d-flex flex-column gap-2">
             <h6 class="text-h6">Layout (Locked to Horizontal)</h6>
-            <CustomRadiosWithImage
+            <!-- <CustomRadiosWithImage
               v-model:selected-radio="currentLayout"
               :radio-content="layouts"
               disabled
-            />
+            /> -->
           </div>
         </CustomizerSection>
 
@@ -165,11 +165,11 @@ setPrimaryColor() // Call the function to apply the locked color
         <CustomizerSection title="Direction">
           <div class="d-flex flex-column gap-2">
             <h6 class="text-h6">Direction (Locked to LTR)</h6>
-            <CustomRadiosWithImage
+            <!-- <CustomRadiosWithImage
               v-model:selected-radio="currentDir"
               :radio-content="direction"
               disabled
-            />
+            /> -->
           </div>
         </CustomizerSection>
       </PerfectScrollbar>

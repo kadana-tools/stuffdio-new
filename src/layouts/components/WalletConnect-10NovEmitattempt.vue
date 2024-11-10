@@ -224,13 +224,10 @@ export default {
         // Check if the wallet connection was aborted
         if (this.API && this.API.status === false) {
           console.warn("Wallet connection was aborted by the user:", this.API);
-            
           walletStore.setEnablingAborted(true); // Set enablingAborted to true on abort
-          
           this.resetData(); // Reset wallet-related state
           this.isLoading = false; // Ensure loading is disabled on abort
           this.$emit('loading', false); // Notify parent to stop loading
-          
           return; // Exit early to prevent further execution
         }
 
@@ -245,16 +242,14 @@ export default {
 
            // If the backend response indicates an issue, handle it
            if (typeof response === "string") {
-            // console.warn("Backend detected an issue:", response);
+            console.warn("Backend detected an issue:", response);
+
+            // Emit the response to the parent (walletmodal.vue)
+            this.$emit('backend-response', response);
 
             // Handle error response: reset wallet state and show error
             this.resetData();
-            
-            walletStore.setBackendMessage(response); // Store the backend message
             walletStore.setCloseLoaderForEmptyWalletConnect(true); // New state
-            // console.log('closeLoaderForEmptyWalletConnect set to true'); // Debug log
-            // console.log('walletStore.closeLoaderForEmptyWalletConnect in walletconnect:', walletStore.closeLoaderForEmptyWalletConnect);
-
 
             walletStore.setEnablingAborted(true); // Set enablingAborted to true
             walletStore.setBackendData(null);
