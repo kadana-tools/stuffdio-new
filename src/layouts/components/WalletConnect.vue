@@ -23,6 +23,11 @@
       </VCol>
     </VRow>
 
+    <!-- Fallback wallet message -->
+    <p v-if="isFallbackShown" class="fallback-message">
+      Wallet connect <span style="text-decoration: underline;">not supported on mobile browsers</span>, use the wallet search instead.
+    </p>
+
     <!-- Loading State -->
     <!-- <VCardText v-if="isLoading" class="d-flex flex-column align-center">
       <div class="progress-container">
@@ -32,6 +37,8 @@
       <p class="loading-text mt-10">Retrieving data from the Cardano Blockchain <span class="dots"></span> </p>
     </VCardText> -->
 
+
+    
     <!-- Connect Button -->
     <!-- <VCardText v-else> -->
       <VCardText v-if="!isLoading">
@@ -141,6 +148,11 @@ export default {
       timerWidth: 100,            // For visual timer effect
     };
   },
+  computed: {
+    isFallbackShown() {
+      return !this.walletFound && Object.keys(this.walletIcons).length > 0;
+    }
+  },
   methods: {
 
         handleWalletClick(key) {
@@ -234,7 +246,7 @@ export default {
         this.walletUrls[key] = fallbackWallets[key].url; // Store URLs
       }
 
-      this.walletFound = true; // Indicate that wallets are available (fallback mode)
+      this.walletFound = false; // Indicate that wallets are available (fallback mode)
     },
 
 
@@ -338,11 +350,6 @@ export default {
         this.$emit('loading', false); // Notify parent loading is complete
       }
     },
-
-
-
-
-
 
     checkIfWalletFound() {
       const walletKey = this.whichWalletSelected;
@@ -759,6 +766,15 @@ export default {
 
 .connect-btn {
   width: 100%;
-  margin-top: 20px;
+  margin-top: 10px;
+  margin-bottom: 0px;
 }
+.fallback-message {
+  font-size: 11px;
+  color: var(--v-primary-darken2); /* Adjust color based on your theme */
+  text-align: left;
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+
 </style>
