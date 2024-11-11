@@ -34,11 +34,9 @@ export const useWalletStore = defineStore('walletStore', {
       this.enablingAborted = status;
     },
     setCloseLoaderForEmptyWalletConnect(status) {
-      console.log('setCloseLoaderForEmptyWalletConnect called with:', status);
       if (!status) {
         setTimeout(() => {
           this.closeLoaderForEmptyWalletConnect = status;
-          console.log('Updated closeLoaderForEmptyWalletConnect to:', this.closeLoaderForEmptyWalletConnect);
         }, 500); // Delay reset to allow watchers to react
       } else {
         this.closeLoaderForEmptyWalletConnect = status;

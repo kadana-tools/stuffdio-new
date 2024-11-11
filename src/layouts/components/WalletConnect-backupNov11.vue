@@ -48,6 +48,14 @@
         Connect
       </VBtn>
     </VCardText>
+
+    <div v-if="showErrorMessage" class="error-overlay">
+      <div class="error-message-box">
+        <span>{{ errorMessage }}</span>
+        <div class="visual-timer" :style="{ width: timerWidth + '%' }"></div>
+      </div>
+    </div>
+
   </VContainer>
 </template>
 
@@ -120,9 +128,36 @@ export default {
       transactionIndxLocked: 0,
       lovelaceLocked: 3000000,
       manualFee: 900000,
+
+      // Error handling states
+      errorMessage: '',           // Store the error message
+      showErrorMessage: false,    // Control visibility of the error message
+      timerWidth: 100,            // For visual timer effect
     };
   },
   methods: {
+          // Helper to show an error message
+      showError(message) {
+        this.errorMessage = message; // Assuming you have an `errorMessage` ref or data property
+        this.showErrorMessage = true; // Assuming `showErrorMessage` controls the error display
+
+        // Optionally, start a timer to auto-hide the error
+        this.startErrorTimer();
+      },
+
+      // Helper to start a visual timer (adapted from searchorconnect.vue)
+      startErrorTimer() {
+        this.timerWidth = 100; // Assuming `timerWidth` is a reactive ref or data property
+        const interval = setInterval(() => {
+          if (this.timerWidth > 0) {
+            this.timerWidth -= 2.5; // Adjust decrement as needed
+          } else {
+            clearInterval(interval);
+            this.showErrorMessage = false; // Hide the error message
+          }
+        }, 100);
+      },
+      
       // Ensure that `window.cardano` exists and list available wallets
       checkForWallets() {
         if (typeof window.cardano !== 'undefined') {
@@ -185,15 +220,17 @@ export default {
       try {
         // Attempt to enable the wallet
         this.API = await window.cardano[walletKey].enable();
-        console.log('this.API:', this.API);
 
         // Check if the wallet connection was aborted
         if (this.API && this.API.status === false) {
           console.warn("Wallet connection was aborted by the user:", this.API);
+            
           walletStore.setEnablingAborted(true); // Set enablingAborted to true on abort
+          
           this.resetData(); // Reset wallet-related state
           this.isLoading = false; // Ensure loading is disabled on abort
           this.$emit('loading', false); // Notify parent to stop loading
+          
           return; // Exit early to prevent further execution
         }
 
@@ -203,10 +240,39 @@ export default {
         if (this.walletIsEnabled) {
           // Fetch balance and post to backend
           await this.getChangeAddress();
-          await postAddressToBackend(this.changeAddress);
-          walletStore.setWalletConnected(true);
-          walletStore.setEnablingAborted(false); // Clear enablingAborted on success
+          // Send the change address to the backend and inspect the response
+          const response = await postAddressToBackend(this.changeAddress);
 
+           // If the backend response indicates an issue, handle it
+           if (typeof response === "string") {
+            // console.warn("Backend detected an issue:", response);
+
+            // Handle error response: reset wallet state and show error
+            this.resetData();
+            
+            walletStore.setBackendMessage(response); // Store the backend message
+            walletStore.setCloseLoaderForEmptyWalletConnect(true); // New state
+            // console.log('closeLoaderForEmptyWalletConnect set to true'); // Debug log
+            // console.log('walletStore.closeLoaderForEmptyWalletConnect in walletconnect:', walletStore.closeLoaderForEmptyWalletConnect);
+
+
+            walletStore.setEnablingAborted(true); // Set enablingAborted to true
+            walletStore.setBackendData(null);
+            walletStore.setBackendDataRetrieved(false); // Indicate no valid backend data
+            walletStore.setWalletConnected(false); // Disconnect wallet
+            walletStore.setChangeAddress(null); // Clear the stored change address
+
+            // Display the error to the user (integrate with UI)
+            // this.showError(response);
+
+            this.isLoading = false; // Ensure loading is disabled
+            this.$emit('loading', false); // Notify parent to stop loading
+            return; // Exit early
+          }
+
+          // Successful response: update wallet state
+          walletStore.setWalletConnected(true);
+          walletStore.setEnablingAborted(false); // Clear enablingAborted
 
           // Notify parent that wallet is enabled
           this.$emit("wallet-enabled");

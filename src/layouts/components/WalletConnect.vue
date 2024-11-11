@@ -7,16 +7,14 @@
           outlined
           class="wallet-card"
           :class="{ active: whichWalletSelected === key }"
-          @click="selectWallet(key)"
-        >
+          @click="handleWalletClick(key)"        >
           <div class="wallet-btn-content">
-            <!-- Place icon above the wallet name and reduce the size of the icon -->
             <img
               v-if="walletIcons[key]"
               :src="walletIcons[key]"
               width="24"
               height="24"
-              :alt="key"
+              :alt="walletNames[key] || key"
               class="wallet-icon"
             />
             <div class="wallet-name">{{ walletNames[key] || key }}</div>
@@ -84,6 +82,14 @@ import { Buffer } from 'buffer';
 import { useWalletStore } from '@/store/walletStore';
 import { postAddressToBackend } from '@/utils/api'; // Import the shared function
 
+import IconLace from '@/assets/images/illustrations/WalletIcon-Lace.png'; // New logo for small screens
+import IconNami from '@/assets/images/illustrations/WalletIcon-Nami.png'; // New logo for small screens
+import IconVespr from '@/assets/images/illustrations/WalletIcon-Vespr.png'; // New logo for small screens
+import IconYoroi from '@/assets/images/illustrations/WalletIcon-Yoroi.png'; // New logo for small screens
+import IconEternl from '@/assets/images/illustrations/WalletIcon-Eternl.png'; // New logo for small screens
+import IconTyphon from '@/assets/images/illustrations/WalletIcon-Typhon.png'; // New logo for small screens
+
+
 
 const walletStore = useWalletStore(); // Access the Pinia store
 
@@ -136,6 +142,17 @@ export default {
     };
   },
   methods: {
+
+        handleWalletClick(key) {
+        // If fallback wallets are shown (wallet URLs exist)
+        if (this.walletUrls && this.walletUrls[key]) {
+          const walletUrl = this.walletUrls[key];
+          window.open(walletUrl, '_blank'); // Open wallet website in a new tab
+        } else {
+          // Default behavior for extension-detected wallets
+          this.selectWallet(key);
+        }
+      },
           // Helper to show an error message
       showError(message) {
         this.errorMessage = message; // Assuming you have an `errorMessage` ref or data property
@@ -178,18 +195,49 @@ export default {
 
           if (wallets.length > 0) {
             // Reverse the order of the wallets and set the first as selected
-            this.wallets = wallets.reverse(); 
+            this.wallets = wallets.reverse();
             this.whichWalletSelected = wallets[0];
             this.walletIcons = walletIcons;
             this.walletNames = walletNames;
             this.walletFound = true;
+
           } else {
             console.error('No compatible Cardano wallet found.');
+            this.showFallbackWallets(); // Call a new method to handle fallback icons
           }
         } else {
           console.error('Cardano wallet not found.');
+          this.showFallbackWallets(); // Call a new method to handle fallback icons
         }
       },
+
+      showFallbackWallets() {
+        // Fallback wallet data
+        const fallbackWallets = {
+          eternl: { name: 'Eternl', icon: IconEternl, url: 'https://eternl.io/' },
+          lace: { name: 'Lace', icon: IconLace, url: 'https://www.lace.io/' },
+          nami: { name: 'Nami', icon: IconNami, url: 'https://namiwallet.io/' },
+          typhon: { name: 'Typhon', icon: IconTyphon, url: 'https://typhonwallet.io/' },
+          vespr: { name: 'Vespr', icon: IconVespr, url: 'https://vespr.xyz/' },
+          yoroi: { name: 'Yoroi', icon: IconYoroi, url: 'https://yoroi-wallet.com/' },
+        };
+
+        // Populate fallback wallets
+      this.wallets = Object.keys(fallbackWallets);
+      this.walletIcons = {};
+      this.walletNames = {};
+      this.walletUrls = {}; // New object to hold URLs
+
+      for (const key in fallbackWallets) {
+        this.walletIcons[key] = fallbackWallets[key].icon;
+        this.walletNames[key] = fallbackWallets[key].name;
+        this.walletUrls[key] = fallbackWallets[key].url; // Store URLs
+      }
+
+      this.walletFound = true; // Indicate that wallets are available (fallback mode)
+    },
+
+
     resetData() {
       this.walletIsEnabled = false;
       this.Utxos = null;

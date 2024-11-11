@@ -84,6 +84,14 @@ import { Buffer } from 'buffer';
 import { useWalletStore } from '@/store/walletStore';
 import { postAddressToBackend } from '@/utils/api'; // Import the shared function
 
+import IconLace from '@/assets/images/illustrations/WalletIcon-Lace.png'; // New logo for small screens
+import IconNami from '@/assets/images/illustrations/WalletIcon-Nami.png'; // New logo for small screens
+import IconVespr from '@/assets/images/illustrations/WalletIcon-Vespr.png'; // New logo for small screens
+import IconYoroi from '@/assets/images/illustrations/WalletIcon-Yoroi.png'; // New logo for small screens
+import IconEternl from '@/assets/images/illustrations/WalletIcon-Eternl.png'; // New logo for small screens
+import IconTyphon from '@/assets/images/illustrations/WalletIcon-Typhon.png'; // New logo for small screens
+
+
 
 const walletStore = useWalletStore(); // Access the Pinia store
 
@@ -178,18 +186,47 @@ export default {
 
           if (wallets.length > 0) {
             // Reverse the order of the wallets and set the first as selected
-            this.wallets = wallets.reverse(); 
+            this.wallets = wallets.reverse();
             this.whichWalletSelected = wallets[0];
             this.walletIcons = walletIcons;
             this.walletNames = walletNames;
             this.walletFound = true;
+
           } else {
             console.error('No compatible Cardano wallet found.');
+            this.showFallbackWallets(); // Call a new method to handle fallback icons
           }
         } else {
           console.error('Cardano wallet not found.');
+          this.showFallbackWallets(); // Call a new method to handle fallback icons
         }
       },
+
+      showFallbackWallets() {
+        // Fallback wallet data
+        const fallbackWallets = {
+          eternl: { name: 'Eternl', icon: IconEternl },
+          lace: { name: 'Lace', icon: IconLace },
+          nami: { name: 'Nami', icon: IconNami },
+          typhon: { name: 'Typhon', icon: IconTyphon },
+          vespr: { name: 'Vespr', icon: IconVespr },
+          yoroi: { name: 'Yoroi', icon: IconYoroi },
+        };
+
+        // Populate fallback wallets
+        this.wallets = Object.keys(fallbackWallets);
+        this.walletIcons = {};
+        this.walletNames = {};
+
+        for (const key in fallbackWallets) {
+          this.walletIcons[key] = fallbackWallets[key].icon;
+          this.walletNames[key] = fallbackWallets[key].name;
+        }
+
+        this.walletFound = true; // Indicate that wallets are available (fallback mode)
+      },
+
+
     resetData() {
       this.walletIsEnabled = false;
       this.Utxos = null;
@@ -224,10 +261,13 @@ export default {
         // Check if the wallet connection was aborted
         if (this.API && this.API.status === false) {
           console.warn("Wallet connection was aborted by the user:", this.API);
+            
           walletStore.setEnablingAborted(true); // Set enablingAborted to true on abort
+          
           this.resetData(); // Reset wallet-related state
           this.isLoading = false; // Ensure loading is disabled on abort
           this.$emit('loading', false); // Notify parent to stop loading
+          
           return; // Exit early to prevent further execution
         }
 
@@ -242,11 +282,16 @@ export default {
 
            // If the backend response indicates an issue, handle it
            if (typeof response === "string") {
-            console.warn("Backend detected an issue:", response);
+            // console.warn("Backend detected an issue:", response);
 
             // Handle error response: reset wallet state and show error
             this.resetData();
+            
+            walletStore.setBackendMessage(response); // Store the backend message
             walletStore.setCloseLoaderForEmptyWalletConnect(true); // New state
+            // console.log('closeLoaderForEmptyWalletConnect set to true'); // Debug log
+            // console.log('walletStore.closeLoaderForEmptyWalletConnect in walletconnect:', walletStore.closeLoaderForEmptyWalletConnect);
+
 
             walletStore.setEnablingAborted(true); // Set enablingAborted to true
             walletStore.setBackendData(null);

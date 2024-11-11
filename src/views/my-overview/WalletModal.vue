@@ -210,7 +210,7 @@ watch(
       showLoaderDialog.value = false; // Close the loader dialog
       isLoading.value = false; // Ensure loading is stopped
 
-      console.log('closeLoaderForEmptyWallet state:', closeLoaderForEmptyWallet)
+      // console.log('closeLoaderForEmptyWallet state:', closeLoaderForEmptyWallet)
 
       // Reset closeLoaderForEmptyWalletConnect in the store
       if (closeLoaderForEmptyWallet) {

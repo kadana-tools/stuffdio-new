@@ -463,7 +463,6 @@ declare module 'vue' {
     readonly paginationMeta: UnwrapRef<typeof import('./src/utils/paginationMeta.js')['paginationMeta']>
     readonly passwordValidator: UnwrapRef<typeof import('./src/@core/utils/validators.js')['passwordValidator']>
     readonly pausableWatch: UnwrapRef<typeof import('@vueuse/core')['pausableWatch']>
-    readonly postAddressToBackend: UnwrapRef<typeof import('./src/utils/api-newNov9.js')['postAddressToBackend']>
     readonly postAddressToBackend: UnwrapRef<typeof import('./src/utils/api.js')['postAddressToBackend']>
     readonly prefixWithPlus: UnwrapRef<typeof import('./src/@core/utils/formatters.js')['prefixWithPlus']>
     readonly provide: UnwrapRef<typeof import('vue')['provide']>
@@ -519,6 +518,7 @@ declare module 'vue' {
     readonly useAbs: UnwrapRef<typeof import('@vueuse/math')['useAbs']>
     readonly useActiveElement: UnwrapRef<typeof import('@vueuse/core')['useActiveElement']>
     readonly useAnimate: UnwrapRef<typeof import('@vueuse/core')['useAnimate']>
+    readonly useApi: UnwrapRef<typeof import('./src/composables/useApi.js')['useApi']>
     readonly useArrayDifference: UnwrapRef<typeof import('@vueuse/core')['useArrayDifference']>
     readonly useArrayEvery: UnwrapRef<typeof import('@vueuse/core')['useArrayEvery']>
     readonly useArrayFilter: UnwrapRef<typeof import('@vueuse/core')['useArrayFilter']>
