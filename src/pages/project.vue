@@ -6,11 +6,21 @@
   </VRow>
 
   <VRow class="match-height" v-else>
-    <VCol cols="12" md="9" class="d-flex">
+    <VCol 
+    class="d-flex"
+    cols="12"
+    lg="9"
+    md="12"
+    >
       <ProjectGraph class="my-dashboard-margin flex-grow-1" :chartConfigs="chartConfigs" />
     </VCol>
 
-    <VCol cols="12" md="3" class="d-flex">
+    <VCol
+    class="d-flex"
+    cols="12"
+    lg="3"
+    md="12" 
+    >
       <ProjectTotals class="my-dashboard-margin flex-grow-1" :formattedPostData="formattedPostData" />
     </VCol>
   </VRow>

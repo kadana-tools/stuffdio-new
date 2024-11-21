@@ -1,8 +1,8 @@
 <template>
   <VCard class="revenue-report">
-    <VRow no-gutters>
+    <VRow class="charts-container">
       <!-- Sizes Chart -->
-      <VCol cols="12" sm="12" class="mb-4">
+      <div class="sizes-chart">
         <VCardItem title="Totals">
           <template #append>
             <MoreBtn />
@@ -16,12 +16,10 @@
             :series="chartSeriesTotal"
           />
         </VCardText>
-      </VCol>
+      </div>
 
-      <VDivider></VDivider>
-      
       <!-- Fortification Chart -->
-      <VCol cols="12" sm="12">
+      <div class="fortification-chart">
         <VCardItem title="Fortification" class="fortification-title" />
         <VCardText>
           <div>
@@ -53,10 +51,12 @@
             </div>
           </div>
         </VCardText>
-      </VCol>
+      </div>
     </VRow>
   </VCard>
 </template>
+
+
 
 <script>
 import img_derpape from '@/assets/images/illustrations/derpape.png';
@@ -314,7 +314,59 @@ export default {
 
 </script>
 
-<style scoped>
+
+<style> /*Chatgpt: Scoped styles (<style scoped>) generate unique class names, preventing media queries from matching elements. Use plain <style> instead.
+/* General Styles */
+.charts-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.sizes-chart,
+.fortification-chart {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+/* Between 600px and 1399px: Row layout */
+@media (min-width:700px) and (max-width: 1399px) {
+  .sizes-chart {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  .fortification-chart {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+/* Larger than 1400px: Vertical layout */
+@media (min-width: 1400px) {
+  .sizes-chart,
+  .fortification-chart {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+/* Divider styles for visual separation (optional) */
+.divider {
+  display: none;
+}
+
+@media (min-width: 600px) and (max-width: 1399px) {
+  .divider {
+    display: block;
+    margin: 0 16px;
+    height: auto;
+  }
+}
+
+@media (max-width: 599px) {
+  .divider {
+    display: none;
+  }
+}
 
 .image-toggle-container {
   display: flex;
@@ -343,6 +395,6 @@ export default {
   font-size: 15px;
   font-weight: bold;
   margin-bottom: -80px;
-
 }
 </style>
+

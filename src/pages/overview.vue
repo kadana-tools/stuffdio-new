@@ -42,13 +42,16 @@ const handleWalletConnected = (connected) => {
     </VRow>
 
     <!-- Wallet pivot table and additional info if wallet is connected and no error exists -->
-    <VRow class="match-height" v-else>
-      <VCol cols="12" md="9" sm="6">
+    <VRow class="match-height d-flex flex-wrap" v-else>
+      <!-- Wallet pivot table -->
+      <VCol class="wallet-pivot">
         <div class="scroll-container">
           <WalletPivottable class="my-dashboard-margin" :Pivottable_Data="walletStore.backendData[1]" />
         </div>
-      </VCol>   
-      <VCol cols="12" md="3" sm="6">
+      </VCol>
+
+      <!-- Sizes and Fortification -->
+      <VCol class="sizes-and-fortification">
         <SizesAndFortification class="my-dashboard-margin" :Overview_Data="walletStore.backendData[3]" />
       </VCol>
     </VRow>
@@ -92,6 +95,27 @@ const handleWalletConnected = (connected) => {
   color: red; /* Example color for error messages */
   margin-top: 10px;
   font-size: 14px;
+}
+
+/* Medium screens: 1024px - 1279px */
+@media (min-width: 1400px) {
+  .wallet-pivot {
+    flex: 0 0 75%; /* 9/12 */
+    max-width: 75%; /* Ensure proper width */
+  }
+  .sizes-and-fortification {
+    flex: 0 0 25%; /* 3/12 */
+    max-width: 25%;
+  }
+}
+
+/* Small screens: Less than 1024px */
+@media (max-width: 1399px) {
+  .wallet-pivot,
+  .sizes-and-fortification {
+    flex: 0 0 100%; /* Full width */
+    max-width: 100%;
+  }
 }
 
 

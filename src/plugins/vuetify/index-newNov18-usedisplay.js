@@ -45,6 +45,8 @@ export default function (app) {
     locale: {
       adapter: createVueI18nAdapter({ i18n: getI18n(), useI18n }),
     },
+    // Add display configuration with custom thresholds
+    display: themeConfig.display, // This integrates your custom breakpoints
   })
 
   app.use(vuetify)

@@ -33,7 +33,7 @@
                   ref="inputRef"
                   v-model="walletAddress"
                   placeholder="addr1... or $handle"
-                  @keydown.enter="updateAddress"
+                  @keydown.enter.prevent="updateAddress"
                   class="w-100"
                 >
                   <template #label>

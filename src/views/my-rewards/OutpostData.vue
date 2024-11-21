@@ -153,8 +153,9 @@ export default {
         v-for="(post, index) in outpostRewards"
         :key="post.Outpost_ID"
         cols="12"
-        md="3"
-        sm="6"
+        lg="3"
+        md="6"
+        sm="6" 
       >
         <VCardText>
           <VCard

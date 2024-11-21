@@ -147,7 +147,8 @@ export default {
         v-for="(data, index) in rewardData"
         :key="index"
         cols="12"
-        md="3"
+        lg="3"
+        md="6"
         sm="6"
       >
         <VCardText>
