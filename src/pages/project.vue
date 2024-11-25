@@ -23,6 +23,16 @@
     >
       <ProjectTotals class="my-dashboard-margin flex-grow-1" :formattedPostData="formattedPostData" />
     </VCol>
+
+    <VCol
+    class="d-flex"
+    cols="12"
+    lg="12"
+    md="12" 
+    sm="12" 
+    >
+      <MinedCoins class="my-dashboard-margin flex-grow-1" :minedCoinsData="minedCoinsData" />
+    </VCol>
   </VRow>
 </template>
 
@@ -33,8 +43,10 @@ import HandCrown from '@/assets/images/illustrations/royalties_v3.png';
 
 import { useWalletStore } from '@/store/walletStore';
 import SearchOrConnect from '@/views/my-overview/SearchOrConnect.vue';
+import MinedCoins from '@/views/project/MinedCoins.vue';
 import ProjectGraph from '@/views/project/ProjectGraph.vue';
 import ProjectTotals from '@/views/project/ProjectTotals.vue';
+
 
 import axios from 'axios';
 import { computed, ref } from 'vue';
@@ -42,9 +54,10 @@ import { useTheme } from 'vuetify';
 
 export default {
   components: {
+    SearchOrConnect,
     ProjectGraph,
     ProjectTotals,
-    SearchOrConnect,
+    MinedCoins
   },
   setup() {
     const vuetifyTheme = useTheme();
@@ -68,11 +81,24 @@ export default {
 
     const fetchData = async () => {
       try {
-        // const response = await axios.get('https://stuffd-426805.ew.r.appspot.com/get_project_totals');
-        const response = await axios.get('https://stuffd-jul23.ew.r.appspot.com/get_project_totals');
+        // const response = await axios.get('https://stuffd-426805.ew.r.appspot.com/get_project_totals'); // older version
+        const response = await axios.get('https://stuffd-jul23.ew.r.appspot.com/get_project_totals'); // the latest version
         // const response = await axios.get('http://127.0.0.1:5000/get_project_totals');
+        
         data.value = response.data;
-        Dates.value = Object.keys(data.value); // Populate Dates array after data fetch
+
+        // console.log('Fetched data:', data.value);
+
+        // Extract dates from project_totals
+        if (data.value.project_totals) {
+          Dates.value = Object.keys(data.value.project_totals); // Assuming project_totals keys are the dates
+        } else {
+          Dates.value = []; // Fallback if project_totals is not present
+        }
+
+        // Extract mined_coins
+
+
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -82,7 +108,11 @@ export default {
     fetchData();
 
     const formattedPostData = computed(() => {
-      return data.value || {};
+      return data.value.project_totals || {};
+    });
+
+    const minedCoinsData = computed(() => {
+      return data.value.mining_data || {};
     });
 
     // Utility function to format numbers in 'k' format
@@ -98,9 +128,9 @@ export default {
     const chartConfigs = computed(() => {
       const monthLabels = getMonthLabels(Dates.value.slice(0, -1)); // Exclude the last month
 
-      const miningData = Dates.value.slice(0, -1).map((date) => data.value[date]?.Mining || 0);
-      const royaltiesData = Dates.value.slice(0, -1).map((date) => data.value[date]?.Royalties || 0);
-      const ecosystemData = Dates.value.slice(0, -1).map((date) => data.value[date]?.Ecosystem || 0);
+      const miningData = Dates.value.slice(0, -1).map((date) => data.value.project_totals[date]?.Mining || 0);
+      const royaltiesData = Dates.value.slice(0, -1).map((date) => data.value.project_totals[date]?.Royalties || 0);
+      const ecosystemData = Dates.value.slice(0, -1).map((date) => data.value.project_totals[date]?.Ecosystem || 0);
 
       return [
         {
@@ -211,6 +241,7 @@ export default {
     return {
       chartConfigs,
       formattedPostData,
+      minedCoinsData,
       isBackendDataAvailable,
       handleWalletConnected,
     };

@@ -8,8 +8,8 @@ export const postAddressToBackend = async (address) => {
   const walletStore = useWalletStore(); 
 
   try {
-    // const response = await axios.post('https://stuffd-426805.ew.r.appspot.com/get_metadata', { address });
-    const response = await axios.post('https://stuffd-jul23.ew.r.appspot.com/get_metadata', { address });
+    // const response = await axios.post('https://stuffd-426805.ew.r.appspot.com/get_metadata', { address }); // an older version
+    const response = await axios.post('https://stuffd-jul23.ew.r.appspot.com/get_metadata', { address }); // the latest version
     // const response = await axios.post('http://127.0.0.1:5000/get_metadata', { address });
 
     if (typeof response.data === 'string') {
