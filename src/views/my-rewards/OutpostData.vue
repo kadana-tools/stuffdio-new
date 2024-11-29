@@ -79,22 +79,23 @@ export default {
           return post?.MiningRewards?.[currentMonth.value] || post?.DerpRewards || post?.EcosystemFees?.[currentMonth.value] || post?.Royalties?.[currentMonth.value];
         })
         .map(post => {
-          const mining = parseFloat(post?.MiningRewards?.[currentMonth.value] || 0).toFixed(1);
-          const royalties = parseFloat(post?.Royalties?.[currentMonth.value] || 0).toFixed(1);
-          const ecosystemFees = parseFloat(post?.EcosystemFees?.[currentMonth.value] || 0).toFixed(1);
-          const sumRewards = (parseFloat(mining) + parseFloat(royalties) + parseFloat(ecosystemFees)).toFixed(1);
+          const mining = parseFloat(post?.MiningRewards?.[currentMonth.value] || 0);
+          const royalties = parseFloat(post?.Royalties?.[currentMonth.value] || 0);
+          const ecosystemFees = parseFloat(post?.EcosystemFees?.[currentMonth.value] || 0);
+          const sumRewards = mining + royalties + ecosystemFees;
 
           return {
             ...post,
-            MiningReward: mining === '0.0' ? '-' : mining,
-            Royalties: royalties === '0.0' ? '-' : royalties,
-            EcosystemFees: ecosystemFees === '0.0' ? '-' : ecosystemFees,
-            TotalSum: sumRewards === '0.0' ? '-' : sumRewards, // Display sum rounded to 1 decimal, or '-' if 0
+            MiningReward: mining === 0 ? '-' : mining.toFixed(2),
+            Royalties: royalties === 0 ? '-' : royalties.toFixed(2),
+            EcosystemFees: ecosystemFees === 0 ? '-' : ecosystemFees.toFixed(2),
+            TotalSum: sumRewards === 0 ? '-' : sumRewards.toFixed(2),
             DerpReward: post?.DerpRewards || '-', // Ensure DerpReward is being captured correctly
             avatarImage: getAvatarImage(post.Faction), // Add avatarImage key based on faction
           };
         });
     });
+
 
     const toggleCardExpansion = (postId) => {
       expandedCards.value[postId] = !expandedCards.value[postId];
@@ -199,8 +200,8 @@ export default {
 
                 <!-- Non-hoverable section: Total sum -->
                 <div class="sum-value">
+                  <span style="font-size: 1.0rem; margin-left: 4px;">₳</span>
                   <h4 class="text-h4">{{ post.TotalSum }}</h4>
-                  <span style="font-size: 0.8rem; margin-left: 4px;">ada</span>
                 </div>
               </div>
 
@@ -212,24 +213,24 @@ export default {
                     <div class="d-flex align-center gap-x-4 mb-4">
                       <div class="sum-text" style="font-size: 0.8rem; font-weight: bold;">Mining:</div>
                       <div class="d-flex align-center ml-auto">
-                        <span class="ml-2">{{ post.MiningReward }}</span>
-                        <span v-if="post.MiningReward !== '-'" class="ada-unit">ada</span> <!-- Added class 'ada-unit' -->
+                        <span v-if="post.MiningReward !== '-'" class="ada-unit">₳</span> <!-- Added class 'ada-unit' -->
+                        <span >{{ post.MiningReward }}</span>
                       </div>
                     </div>
 
                     <div class="d-flex align-center gap-x-4 mb-4">
                       <div class="sum-text" style="font-size: 0.8rem; font-weight: bold;">Ecosystem Fees:</div>
                       <div class="d-flex align-center ml-auto">
-                        <span class="ml-2">{{ post.EcosystemFees }}</span>
-                        <span v-if="post.EcosystemFees !== '-'" class="ada-unit">ada</span> <!-- Added class 'ada-unit' -->
+                        <span v-if="post.EcosystemFees !== '-'" class="ada-unit">₳</span> <!-- Added class 'ada-unit' -->
+                        <span >{{ post.EcosystemFees }}</span>
                       </div>
                     </div>
 
                     <div class="d-flex align-center gap-x-4 mb-4">
                       <div class="sum-text" style="font-size: 0.8rem; font-weight: bold;">Royalties:</div>
                       <div class="d-flex align-center ml-auto">
-                        <span class="ml-2">{{ post.Royalties }}</span>
-                        <span v-if="post.Royalties !== '-'" class="ada-unit">ada</span> <!-- Added class 'ada-unit' -->
+                        <span v-if="post.Royalties !== '-'" class="ada-unit">₳</span> <!-- Added class 'ada-unit' -->
+                        <span >{{ post.Royalties }}</span>
                       </div>
                     </div>
 
@@ -273,7 +274,7 @@ export default {
 
 .ada-unit {
   font-size: 0.8rem;
-  margin-left: 4px;
+  margin-left: 2px;
   font-weight: normal; /* Match this to other styling if needed */
 }
 

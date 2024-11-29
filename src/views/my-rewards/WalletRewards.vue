@@ -173,9 +173,9 @@ export default {
                 </VAvatar>
                 <div class="d-flex align-center ml-auto">
                   <!-- Round the value to 1 decimal -->
-                  <h3 class="text-h3">{{ parseFloat(data.value).toFixed(1) }}</h3>
+                  <span v-if="data.title !== '$Derp'" style="font-size: 1.1rem; margin-left: 4px;">₳</span>
+                  <h3 class="text-h3">{{ parseFloat(data.value).toFixed(2) }}</h3>
                   <!-- Add "ada" for all except Derp rewards -->
-                  <span v-if="data.title !== '$Derp'" style="font-size: 0.8rem; margin-left: 4px;">ada</span>
                   <!-- Add '/epoch' for Derp rewards -->
                   <span v-if="data.title === '$Derp'" style="font-size: 0.8rem; margin-left: 4px;">/epoch</span>
                 </div>

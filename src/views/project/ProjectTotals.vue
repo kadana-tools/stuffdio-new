@@ -48,6 +48,7 @@
 
     <!-- Single VCard for all reward categories -->
     <VCardText>
+
       <!-- Mining Section -->
       <div class="d-flex flex-column justify-space-between" style="height: 100%;">
         <div class="text-h5 mb-2">Mining</div>
@@ -56,11 +57,10 @@
             <img :src="MiningPickaxe" alt="icon" width="45" height="45" />
           </VAvatar>
           <div class="d-flex align-center ml-auto">
+            <span style="font-size: 1.2rem">₳</span>
             <h3 class="text-h3">
-              <!-- Display Monthly or All-Time value for Mining -->
-              {{ !isAllTime ? allTimeData.Mining.toFixed(0) : formattedPostData[currentMonth]?.Mining?.toFixed(0) || 0 }}
+              {{ !isAllTime ? formatValue(allTimeData.Mining) : formatValue(formattedPostData[currentMonth]?.Mining || 0) }}
             </h3>
-            <span style="font-size: 0.8rem; margin-left: 4px;">ada</span>
           </div>
         </div>
       </div>
@@ -76,11 +76,10 @@
             <img :src="EcosystemRewards" alt="icon" width="45" height="45" />
           </VAvatar>
           <div class="d-flex align-center ml-auto">
+            <span style="font-size: 1.2rem">₳</span>
             <h3 class="text-h3">
-              <!-- Display Monthly or All-Time value for Ecosystem Fees -->
-              {{ !isAllTime ? allTimeData.Ecosystem.toFixed(0) : formattedPostData[currentMonth]?.Ecosystem?.toFixed(0) || 0 }}
-            </h3>
-            <span style="font-size: 0.8rem; margin-left: 4px;">ada</span>
+              {{ !isAllTime ? formatValue(allTimeData.Ecosystem) : formatValue(formattedPostData[currentMonth]?.Ecosystem || 0) }}
+            </h3>            
           </div>
         </div>
       </div>
@@ -88,22 +87,22 @@
       <!-- Divider between sections -->
       <VDivider />
 
-            <!-- Royalties Section -->
-            <div class="d-flex flex-column justify-space-between" style="height: 100%;">
+      <!-- Royalties Section -->
+      <div class="d-flex flex-column justify-space-between" style="height: 100%;">
         <div class="text-h5 mb-2">Royalties</div>
         <div class="d-flex align-center gap-x-4 mb-4">
           <VAvatar rounded size="70">
             <img :src="HandCrown" alt="icon" width="45" height="45" />
           </VAvatar>
           <div class="d-flex align-center ml-auto">
+            <span style="font-size: 1.2rem">₳</span>
             <h3 class="text-h3">
-              <!-- Display Monthly or All-Time value for Royalties -->
-              {{ !isAllTime ? allTimeData.Royalties.toFixed(0) : formattedPostData[currentMonth]?.Royalties?.toFixed(0) || 0 }}
+              {{ !isAllTime ? formatValue(allTimeData.Royalties) : formatValue(formattedPostData[currentMonth]?.Royalties || 0) }}
             </h3>
-            <span style="font-size: 0.8rem; margin-left: 4px;">ada</span>
           </div>
         </div>
       </div>
+
     </VCardText>
   </VCard>
 </template>
@@ -133,6 +132,28 @@ export default {
       }
       return totals;
     });
+
+      // Custom formatting for numbers with commas and decimals
+    const formatValue = (value) => {
+      if (value < 1) {
+        return value.toPrecision(2); // Two significant decimals for small values
+      }
+      return new Intl.NumberFormat('en-US', { 
+        minimumFractionDigits: 0, // No decimals
+        maximumFractionDigits: 0 // No decimals
+      }).format(value); // Commas and two decimals for larger values
+    };
+
+    const formatWholePart = (value) => {
+      const [whole] = new Intl.NumberFormat('en-US', { minimumFractionDigits: 0 }).format(value).split('.');
+      return whole; // Returns the part before the decimal
+    };
+
+    const formatDecimalPart = (value) => {
+      const [, decimals] = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value).split('.') || [];
+      return decimals ? `.${decimals}` : ''; // Returns the decimal part with a dot
+    };
+
 
     // Initialize available months based on the provided formattedPostData
     const initializeMonths = () => {
@@ -165,6 +186,9 @@ export default {
       MiningPickaxe,
       HandCrown,
       EcosystemRewards,
+      formatValue,
+      formatWholePart,
+      formatDecimalPart
     };
   },
 };
@@ -181,5 +205,19 @@ export default {
   border-block-end-width: 3px;
   margin-block-end: -1px;
   transition: all 0.1s ease-out;
+}
+
+.text-h3 {
+  font-size: 1.5rem;
+  /* font-weight: bold; */
+}
+
+.number {
+  font-size: 1.5rem; /* Same as text-h3 */
+}
+
+.decimal {
+  font-size: 1rem; /* Smaller than the main number */
+  color: #666; /* Optional: muted color */
 }
 </style>
